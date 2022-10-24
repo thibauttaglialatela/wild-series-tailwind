@@ -1,5 +1,6 @@
 <nav class="
 relative
+sticky top-0
 w-full
 flex flex-wrap
 items-center
@@ -13,7 +14,7 @@ shadow-lg
 navbar navbar-expand-md navbar-red
 ">
     <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
-        <a class="text-4xl text-black" href="#">Navbar</a>
+        <a class="text-4xl text-black uppercase" href="{{ path('Home_page') }}">wild series</a>
         <button class="
     navbar-toggler
     text-gray-500
@@ -21,7 +22,8 @@ navbar navbar-expand-md navbar-red
     hover:shadow-none hover:no-underline
     py-2
     px-2.5
-    bg-transparent
+    bg-white
+    rounded
     focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline
   " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,10 +36,9 @@ navbar navbar-expand-md navbar-red
         </button>
 
         <div class="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
-{#            <a class="text-4xl text-black" href="#">Navbar</a>#}
             <!-- Left links -->
-            <ul class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
-                <li class="nav-item px-2">
+            <ul class="navbar-nav flex flex-col pl-0 list-style-none mr-auto items-center">
+                <li class="nav-item px-2 my-5">
                     {{ component('_button', {
                         buttonUrl: '#',
                         buttonText: 'acteurs'
@@ -45,7 +46,6 @@ navbar navbar-expand-md navbar-red
                     }}
                 </li>
                 <li class="nav-item pr-2">
-{#                    <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="#">catégories</a>#}
                     {{ component('_button', {
                         buttonUrl: '#',
                         buttonText: 'catégories'
@@ -53,10 +53,10 @@ navbar navbar-expand-md navbar-red
                     }}
                 </li>
                 <li class="nav-item pr-2">
-                    <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="#">mes favoris</a>
+                    <a class="nav-link text-black hover:text-white focus:text-white p-0" href="#">mes favoris</a>
                 </li>
                 <li class="nav-item pr-2">
-                    <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="#">connection</a>
+                    <a class="nav-link text-black hover:text-white focus:text-white p-0" href="#">connection</a>
                 </li>
             </ul>
             <!-- Left links -->
