@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1 class="font-serif text-4xl font-bold text-center text-red">Page not found</h1>
+
+    <p class="font-sans text-base text-red text-left">
+        The requested page couldn't be located. Checkout for any URL
+        misspelling or <a href="{{ path('Home_page') }}">return to the homepage</a>.
+    </p>
+
+{% endblock %}

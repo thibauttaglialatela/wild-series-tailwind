@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des séries{% endblock %}
+{% block body %}
+    {% for program in programs %}
+        <div class="flex items-center flex-row justify-center">
+            <div class="w-full md:w-1/2 justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
+                <img src="{{ program.poster }}" alt="{{ program.title }}" class="w-full h-auto object-cover rounded-t-lg">
+                <div class="w-full p-4 justify-start flex flex-col">
+                    <h4 class="border-b-2 text-lg" id="whoobe-3mr7n">{{ program.title }}</h4>
+                    <p class="my-4 text-base" id="whoobe-950fw">{{ program.synopsis }}</p>
+                    <button>
+                        {{ component('_button', {
+                            buttonUrl: '#',
+                            buttonText: 'En savoir plus'
+                        })
+                        }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}
