@@ -1,0 +1,17 @@
+<div class="w-1/4 grid grid-rows-2 gap-y-2 bg-red text-black">
+{#    image#}
+    <div class="bg-origin-border bg-center bg-no-repeat bg-cover ">
+        <img src="{{ cardPosterUrl }}" alt="{{ cardTitle }}">
+    </div>
+    <section class="flex flex-col">
+        <h2 class="font-bold">{{ cardTitle }}</h2>
+        <p class="text-left">{{ cardText }}</p>
+        <div>
+            {{ component('_button', {
+                buttonUrl: '#',
+                buttonText: 'En savoir plus'
+            })
+            }}
+        </div>
+    </section>
+</div>
