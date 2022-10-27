@@ -26,7 +26,7 @@ class CategoryController extends AbstractController
         $category = $categoryRepository->findOneBy(['name' => $categoryName]);
         if (!$category) {
             throw $this->createNotFoundException(
-                'aucune catégorie de ce type trouvée'
+                'aucune catégorie nommée ' . $categoryName . ' trouvée'
             );
         }
 //récupére tous les programmes de cette catégorie
