@@ -31,5 +31,7 @@ RUN cd /var/www && \
 
 WORKDIR /var/www/
 
+ENTRYPOINT ["bash", "./docker/docker.sh"]
+
 #Pour utiliser ce conteneur depuis l'extérieur il faut l'exposer depuis le port 80
 EXPOSE 80
