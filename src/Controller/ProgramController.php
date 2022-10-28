@@ -18,6 +18,7 @@ class ProgramController extends AbstractController
             'programs' => $programs,
         ]);
     }
+//    TODO:finir la quete 11 symfony
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(int $id): Response
     {
