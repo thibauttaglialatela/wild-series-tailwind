@@ -29,9 +29,12 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                 $program->setSynopsis($faker->sentence(50));
                 $program->setPoster('https://picsum.photos/300/200');
                 $program->setCategory($this->getReference($categorieName));
+                $this->setReference('Program_' . $i, $program);
                 $manager->persist($program);
+
             }
         }
+
         $manager->flush();
     }
 
