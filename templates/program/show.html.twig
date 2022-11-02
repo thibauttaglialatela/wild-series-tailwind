@@ -1,9 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ dump(program) }}
-<h1 class="text-center uppercase">{{ program.title }}</h1>
-<p>{{ program.synopsis }}</p>
-    <img src="{{ program.poster }}" alt="{{ program.title }}">
-{{ dump(seasons) }}
+    <div class="min-h-screen border-red border-2 border-solid flex flex-col justify-content-evenly">
+        <h1 class="text-center uppercase font-extrabold">{{ program.title }} - {{ program.id }}</h1>
+        <h3 class="text-center">{{ program.country }}</h3>
+        <h3 class="text-center">{{ program.year }}</h3>
+        <div>
+            <h3 class="text-center">Résumé :</h3>
+            <p>{{ program.synopsis }}</p>
+        </div>
+        <div class="flex justify-center">
+            <img src="{{ program.poster }}" alt="{{ program.title }}">
+        </div>
+        <h3 class="text-center font-bold">Saisons</h3>
+        <ol>
+            {% for season in seasons %}
+                <li>Saison - {{ season.number }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+
+
 {% endblock %}
