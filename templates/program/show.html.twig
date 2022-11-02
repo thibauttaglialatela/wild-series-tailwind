@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1 class="text-center uppercase">Program {{ id }}</h1>
+    {{ dump(program) }}
+<h1 class="text-center uppercase">{{ program.title }}</h1>
+<p>{{ program.synopsis }}</p>
+    <img src="{{ program.poster }}" alt="{{ program.title }}">
+{{ dump(seasons) }}
 {% endblock %}
