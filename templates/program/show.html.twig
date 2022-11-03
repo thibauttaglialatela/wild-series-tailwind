@@ -2,22 +2,33 @@
 
 {% block body %}
     <div class="min-h-screen border-red border-2 border-solid flex flex-col justify-content-evenly">
-        <h1 class="text-center uppercase font-extrabold">{{ program.title }} - {{ program.id }}</h1>
+        <h1 class="text-center uppercase font-extrabold text-2xl">{{ program.title }}</h1>
         <h3 class="text-center">{{ program.country }}</h3>
         <h3 class="text-center">{{ program.year }}</h3>
+        <h4 class="text-center">Catégorie : {{ program.category.name }}</h4>
         <div>
             <h3 class="text-center">Résumé :</h3>
-            <p>{{ program.synopsis }}</p>
+            <p class="text-left">{{ program.synopsis }}</p>
         </div>
         <div class="flex justify-center">
             <img src="{{ program.poster }}" alt="{{ program.title }}">
         </div>
         <h3 class="text-center font-bold">Saisons</h3>
-        <ol>
+        <ol class="list-decimal">
             {% for season in seasons %}
-                <li>Saison - {{ season.number }}</li>
+                <li class="text-center"><a href="#" class="hover:underline">Saison - {{ season.number }}</a></li>
             {% endfor %}
         </ol>
+        <div class="flex justify-center space-x-2">
+            {#{{ component('_button', {
+                buttonUrl: {{ path('category_show', {categoryName: program.category.name}) }},
+                buttonText: 'Retour'
+            })
+            }}#}
+            <a type="button"
+               class="btn text-center inline-block px-6 py-2.5 bg-white text-black font-medium text-md leading-tight uppercase rounded hover:bg-black hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+               aria-current="page" href="{{ path('category_show', {categoryName: program.category.name}) }}">Retour</a>
+        </div>
     </div>
 
 
