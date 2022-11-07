@@ -20,7 +20,7 @@ class Season
     private ?int $number = null;
 
     #[ORM\Column]
-    private ?int $year = null;
+    private ?string $year = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -53,12 +53,12 @@ class Season
         return $this;
     }
 
-    public function getYear(): ?int
+    public function getYear(): ?string
     {
         return $this->year;
     }
 
-    public function setYear(int $year): self
+    public function setYear(string $year): self
     {
         $this->year = $year;
 

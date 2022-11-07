@@ -24,7 +24,6 @@ class ProgramController extends AbstractController
         ]);
     }
 
-//    TODO:finir la quete 11 symfony
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(Program $program, SeasonRepository $seasonRepository): Response
     {
