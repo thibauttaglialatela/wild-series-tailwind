@@ -12,8 +12,13 @@ module.exports = {
       white: '#eee',
     },
     fontFamily: {
-      sans: ["Open Sans", "sans-serif"],
+      sans: ['"Open Sans"', "sans-serif"],
       serif: ['merriweather', "serif"],
+    },
+    listStyleType: {
+      none: 'none',
+      disc: 'disc',
+      decimal: 'decimal',
     },
     extend: {
     },

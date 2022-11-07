@@ -1,5 +1,45 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}{{ parent() }} - {{ program.title }}{% endblock %}
 {% block body %}
-<h1 class="text-center uppercase">Program {{ id }}</h1>
+    <div class="min-h-screen flex flex-col">
+        <h1 class="text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">{{ program.title }}</h1>
+        <div class="md:grid md:grid-cols-2 flex flex-col space-y-8">
+            <div class="flex justify-center">
+                <img src="{{ program.poster }}" alt="{{ program.title }}">
+            </div>
+            <div>
+                <div class="md:flex md:justify-around my-2 md:my-5">
+                    <h3 class="text-center">{{ program.country }}</h3>
+                    <h3 class="text-center">{{ program.year }}</h3>
+                </div>
+                <h4 class="text-center my-2 md:my-5">Catégorie : {{ program.category.name }}</h4>
+                <div>
+                    <h3 class="text-center">Résumé :</h3>
+                    <p class="text-left m-2 md:mx-12 font-sans">{{ program.synopsis }}</p>
+                </div>
+
+                <div class="md:flex md:justify-evenly">
+
+                    <ol class="list-decimal">
+                        <h3 class="text-center font-bold">Saisons</h3>
+                        {% for season in seasons %}
+                            <li class="text-center"><a
+                                        href="{{ path('program_season_show', {programId: program.id, seasonId: season.id}) }}"
+                                        class="hover:underline">Saison - {{ season.number }}</a></li>
+                        {% endfor %}
+                    </ol>
+                    <h3 class="text-center font-bold">Acteurs</h3>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center m-9">
+             {{ component('_button', {
+                buttonUrl: path('category_show', {categoryName: program.category.name}),
+                buttonText: 'Retour'
+            })
+            }}
+        </div>
+    </div>
+
+
 {% endblock %}
