@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Repository\ProgramRepository;
@@ -34,7 +35,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{programId}/seasons/{seasonId}', name: 'season_show', requirements: ['programId' => '\d+', 'seasonId' => '\d+'])]
+    #[Route('/{programId}/season/{seasonId}', name: 'season_show', requirements: ['programId' => '\d+', 'seasonId' => '\d+'])]
     #[Entity('program', options: ['id' => 'programId'])]
     #[ParamConverter("season", class: "App\Entity\Season", options: ["mapping" => ["seasonId" => "id"]])]
     public function showSeason(Program $program, Season $season): Response
@@ -45,5 +46,19 @@ class ProgramController extends AbstractController
             'season' => $season,
             'episodes' => $episodes,
         ]);
+    }
+
+    #[Route('/{programId}/season/{seasonId}/episode/{episodeId}', name: 'episode_show',requirements: ['programId' => '\d+', 'seasonId' => '\d+', 'episodeId' => '\d+'])]
+    #[Entity('program', options: ['id' => 'programId'])]
+    #[Entity('season', options: ['id' => 'seasonId'])]
+    #[Entity('episode', options: ['id' => 'episodeId'])]
+    public function showEpisode(Program $program, Season $season, Episode $episode): Response
+    {
+        return $this->render('program/episode_show.html.twig', [
+            'program' => $program,
+            'season' => $season,
+            'episode' => $episode,
+        ]);
+
     }
 }
