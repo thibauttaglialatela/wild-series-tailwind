@@ -1,5 +1,8 @@
 parameters:
     level: 9
+    doctrine:
+            objectManagerLoader: tests/object-manager.php
+            allowNullablePropertyForRequiredField: true
     paths:
         - src
     excludePaths:

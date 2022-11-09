@@ -35,6 +35,7 @@ class Program
     #[ORM\Column]
     private ?string $year = null;
 
+    /** @var Collection<int, Season> */
     #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
     private Collection $seasons;
 

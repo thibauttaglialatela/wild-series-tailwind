@@ -28,6 +28,7 @@ class Season
     #[ORM\ManyToOne(inversedBy: 'seasons')]
     private ?Program $program = null;
 
+    /** @var Collection<int, Episode> */
     #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class)]
     private Collection $episodes;
 
