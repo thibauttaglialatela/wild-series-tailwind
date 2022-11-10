@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ parent() }} - {{ category.name }}{% endblock %}
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold">{{ category.name }}</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">{{ category.name }}</h1>
     <section class="grid lg:grid-cols-3 mt-2 grid-flow-row">
         {% for program in program_by_category %}
             <div class="flex items-center flex-row justify-center max-h-min max-w-max mx-4 mb-2 rounded-lg shadow-lg">
