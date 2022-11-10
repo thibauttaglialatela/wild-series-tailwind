@@ -2,7 +2,7 @@
 {% block title %}{{ parent() }} - {{ program.title }}{% endblock %}
 {% block body %}
     <div class="min-h-screen flex flex-col">
-        <h1 class="text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">{{ program.title }}</h1>
+        <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">{{ program.title }}</h1>
         <div class="md:grid md:grid-cols-2 flex flex-col space-y-8">
             <div class="flex justify-center">
                 <img src="{{ program.poster }}" alt="{{ program.title }}">
