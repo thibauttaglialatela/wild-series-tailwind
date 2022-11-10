@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Type;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -18,6 +19,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    /** @var Collection<int, Program>  */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
     private Collection $programs;
 

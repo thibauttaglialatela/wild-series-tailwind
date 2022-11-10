@@ -20,7 +20,7 @@ class Season
     private ?int $number = null;
 
     #[ORM\Column]
-    private ?string $year = null;
+    private ?int $year = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -28,6 +28,7 @@ class Season
     #[ORM\ManyToOne(inversedBy: 'seasons')]
     private ?Program $program = null;
 
+    /** @var Collection<int, Episode> */
     #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class)]
     private Collection $episodes;
 
@@ -53,12 +54,12 @@ class Season
         return $this;
     }
 
-    public function getYear(): ?string
+    public function getYear(): ?int
     {
         return $this->year;
     }
 
-    public function setYear(string $year): self
+    public function setYear(int $year): self
     {
         $this->year = $year;
 
