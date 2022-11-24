@@ -23,6 +23,16 @@
                 </ol>
             </div>
         </div>
+        <div>
+            {{ component('_button', {
+                buttonUrl: path('season_show', {'id': season.id}),
+                buttonText: "Montrer"
+            }) }}
+            {{ component('_button', {
+                buttonUrl: path('season_edit', {'id': season.id}),
+                buttonText: "Editer"
+            }) }}
+        </div>
         {{ component('_button', {
             buttonUrl: path('program_show', {'id': program.id}),
             buttonText: "Retour"
