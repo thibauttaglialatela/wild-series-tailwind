@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} - Ajout d'une catégorie{% endblock %}
+{% block body %}
+    <h1 class="font-sans text-2xl lg:text-5xl text-center">Création d'une nouvelle catégorie</h1>
+    <section class="flex justify-center items-center h-full">
+        <div class="block p-6 rounded-lg shadow-lg bg-red max-w-sm h-56">
+            {{ include('/category/_form.html.twig') }}
+            <div class="mt-5">
+                {{ component('_button', {
+                    buttonUrl: path('program_index'),
+                    buttonText: 'Retour',
+                }) }}
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

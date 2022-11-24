@@ -29,6 +29,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@tailwindcss/forms": "^0.5.3",
         "tw-elements": "^1.0.0-alpha12"
     }
 }
