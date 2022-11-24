@@ -2,7 +2,43 @@
 
 {% block title %}Liste des séries{% endblock %}
 {% block body %}
-    {% for program in programs %}
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Liste des séries</h1>
+    <div class="flex flex-row justify-evenly mt-5">
+        {{ component('_button', {
+            buttonUrl: path('category_new'),
+            buttonText:'ajouter une catégorie'
+        }) }}
+        {{ component('_button', {
+            buttonUrl:path('program_new'),
+            buttonText: 'ajouter une série',
+        }) }}
+    </div>
+    <div class="flex justify-center items-center">
+        <table class="min-w-full mb-5">
+            <thead class="bg-transparent border-b">
+            <tr>
+                <th>id</th>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Pays</th>
+                <th>Année</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for program in programs %}
+                <tr class="bg-gray-100 border-b">
+                    <td>{{ program.id }}</td>
+                    <td>{{ program.title }}</td>
+                    <td>{{ program.category.name }}</td>
+                    <td>{{ program.country }}</td>
+                    <td>{{ program.year }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {#{% for program in programs %}
         <div class="flex items-center flex-row justify-center">
             <div class="w-full md:w-1/2 justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
                 <img src="{{ program.poster }}" alt="{{ program.title }}" class="w-full h-auto object-cover rounded-t-lg">
@@ -20,5 +56,5 @@
             </div>
         </div>
 
-    {% endfor %}
+    {% endfor %}#}
 {% endblock %}
