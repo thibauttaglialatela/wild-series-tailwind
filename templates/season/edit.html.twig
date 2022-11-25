@@ -10,7 +10,7 @@
 
         <div class="mt-5">
             {{ component('_button', {
-                buttonUrl: path('season_index'),
+                buttonUrl: path('program_season_show', {'programId': program.id, 'seasonId': season.id}),
                 buttonText: 'Retour',
             }) }}
         </div>

@@ -50,9 +50,9 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-
-    public function edit(Request $request, Season $season, SeasonRepository $seasonRepository): Response
+    #[Route('/{id}/program/{program_id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[ParamConverter('program', options: ['mapping' => ['program_id' => 'id']])]
+    public function edit(Request $request, Season $season, SeasonRepository $seasonRepository, Program $program): Response
     {
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
@@ -60,11 +60,12 @@ class SeasonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $seasonRepository->save($season, true);
 
-            return $this->redirectToRoute('season_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_season_show', ['programId'=> $program->getId(), 'seasonId'=>$season->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('season/edit.html.twig', [
             'season' => $season,
+            'program' => $program,
             'form' => $form,
         ]);
     }

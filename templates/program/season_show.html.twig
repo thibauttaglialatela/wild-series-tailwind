@@ -29,7 +29,7 @@
                 buttonText: "Montrer"
             }) }}
             {{ component('_button', {
-                buttonUrl: path('season_edit', {'id': season.id}),
+                buttonUrl: path('season_edit', {'id': season.id, 'program_id': program.id}),
                 buttonText: "Editer"
             }) }}
         </div>
