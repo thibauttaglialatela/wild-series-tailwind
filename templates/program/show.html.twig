@@ -32,12 +32,16 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-center m-9">
+        <div class="flex justify-around m-9">
              {{ component('_button', {
                 buttonUrl: path('category_show', {categoryName: program.category.name}),
                 buttonText: 'Retour'
             })
             }}
+            {{ component('_button', {
+                buttonUrl: path('season_new'),
+                buttonText: "ajout d'une saison"
+            }) }}
         </div>
     </div>
 
