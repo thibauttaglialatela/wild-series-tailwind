@@ -4,9 +4,9 @@
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">{{ category.name }}</h1>
     <section class="grid lg:grid-cols-3 mt-2 grid-flow-row">
         {% for program in program_by_category %}
-            <div class="flex items-center flex-row justify-center max-h-min max-w-max mx-4 mb-2 rounded-lg shadow-lg">
+            <div class="flex items-center flex-row justify-center max-w-sm md:max-w-md mx-4 mb-2 rounded-lg shadow-lg">
                 <div class="justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
-                    <img src="{{ program.poster }}" alt="{{ program.title }}" class="w-full h-auto object-cover rounded-t-lg">
+                    <img src="{{ program.poster }}" alt="{{ program.title }}" class="w-full h-auto object-contain rounded-t-lg">
                     <div class="w-full p-4 justify-start flex flex-col">
                         <h4 class="border-b-2 text-lg" id="whoobe-3mr7n">{{ program.title }}</h4>
                         <p class="my-4 text-base" id="whoobe-950fw">{{ program.synopsis }}</p>
