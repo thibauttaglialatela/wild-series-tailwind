@@ -79,4 +79,22 @@ class ProgramController extends AbstractController
         ]);
 
     }
+
+    #[Route('/{id}/edit', name: "edit",requirements: ['id' => '\d+'])]
+    public function edit(Request $request, Program $program, ProgramRepository $programRepository): Response
+    {
+        $form = $this->createForm(ProgramType::class, $program);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $programRepository->save($program, true);
+
+            return $this->redirectToRoute('program_show', ['id'=>$program->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('program/edit.html.twig', [
+            'form' => $form,
+            'program' => $program,
+        ]);
+    }
 }
