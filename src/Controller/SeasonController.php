@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\SeasonType;
-use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
