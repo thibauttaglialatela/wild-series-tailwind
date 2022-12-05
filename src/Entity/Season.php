@@ -25,11 +25,11 @@ class Season
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'seasons')]
+    #[ORM\ManyToOne(cascade: ["remove"], inversedBy: 'seasons')]
     private ?Program $program = null;
 
     /** @var Collection<int, Episode> */
-    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class)]
+    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class, orphanRemoval: true)]
     private Collection $episodes;
 
     public function __construct()

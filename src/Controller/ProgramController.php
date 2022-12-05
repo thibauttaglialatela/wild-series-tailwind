@@ -97,4 +97,13 @@ class ProgramController extends AbstractController
             'program' => $program,
         ]);
     }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
+    public function delete(Program $program, ProgramRepository $programRepository, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->get('_token'))) {
+            $programRepository->remove($program, true);
+        }
+        return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

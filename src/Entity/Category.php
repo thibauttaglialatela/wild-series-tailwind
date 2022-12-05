@@ -25,7 +25,7 @@ class Category
     )]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
     private Collection $programs;
 
     public function __construct()
