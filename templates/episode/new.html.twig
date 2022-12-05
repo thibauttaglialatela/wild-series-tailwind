@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Episode{% endblock %}
+{% block title %}{{ parent() }} - Nouvel épisode{% endblock %}
 
 {% block body %}
-    <h1>Create new Episode</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Create new Episode</h1>
+<section class="flex justify-center items-center">
+    <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
+        {{ include('episode/_form.html.twig') }}
+    </div>
+    {{ component('_button', {
+        buttonUrl: path('episode_index'),
+        buttonText: 'Revenir à la liste'
+    }) }}
+</section>
 
-    {{ include('episode/_form.html.twig') }}
 
-    <a href="{{ path('app_episode_index') }}">back to list</a>
+    <a href="{{ path('episode_index') }}">Revenir à la liste</a>
 {% endblock %}

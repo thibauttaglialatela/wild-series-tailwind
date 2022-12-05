@@ -54,7 +54,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{programId}/season/{seasonId}', name: 'season_show', requirements: ['programId' => '\d+', 'seasonId' => '\d+'])]
-    #[Entity('program', options: ['id' => 'programId'])]
+    #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ["programId" => "id"]])]
     #[ParamConverter("season", class: "App\Entity\Season", options: ["mapping" => ["seasonId" => "id"]])]
     public function showSeason(Program $program, Season $season): Response
     {

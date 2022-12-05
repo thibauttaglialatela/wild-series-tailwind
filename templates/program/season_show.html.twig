@@ -32,6 +32,10 @@
                 buttonUrl: path('season_edit', {'id': season.id, 'program_id': program.id}),
                 buttonText: "Editer"
             }) }}
+            {{ component('_button', {
+                buttonUrl: path('episode_new'),
+                buttonText: "Ajouter un épisode"
+            }) }}
         </div>
         {{ component('_button', {
             buttonUrl: path('program_show', {'id': program.id}),
