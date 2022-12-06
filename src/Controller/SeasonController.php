@@ -23,32 +23,34 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SeasonRepository $seasonRepository): Response
+    #[Route('/program/{programId}/new', name: 'new', methods: ['GET', 'POST'])]
+    #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ['programId' => 'id']])]
+    public function new(Request $request, SeasonRepository $seasonRepository, Program $program): Response
     {
         $season = new Season();
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $seasonRepository->save($season, true);
 
-            return $this->redirectToRoute('season_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_show', ['id' => $program->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('season/new.html.twig', [
             'season' => $season,
             'form' => $form,
+            'program' => $program,
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    #[Route('/{id}/program/{programId}', name: 'show', methods: ['GET'])]
+    #[ParamConverter('program', class: 'App\Entity\Program',options: ['mapping' => ['programId' => 'id']])]
     public function show(Season $season, Program $program): Response
     {
 
         return $this->render('season/show.html.twig', [
             'season' => $season,
-            'program' => $program,
+            'program' => $program
         ]);
     }
 
@@ -75,10 +77,11 @@ class SeasonController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Season $season, SeasonRepository $seasonRepository): Response
     {
+
         if ($this->isCsrfTokenValid('delete'.$season->getId(), $request->request->get('_token'))) {
             $seasonRepository->remove($season, true);
         }
 
-        return $this->redirectToRoute('season_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('program_show', ['id' => $season->getProgram()->getId()], Response::HTTP_SEE_OTHER);
     }
 }

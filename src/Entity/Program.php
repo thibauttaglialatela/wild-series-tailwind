@@ -36,7 +36,7 @@ class Program
     private ?string $year = null;
 
     /** @var Collection<int, Season> */
-    #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
     private Collection $seasons;
 
     public function __construct()

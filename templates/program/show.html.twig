@@ -39,7 +39,7 @@
             })
             }}
             {{ component('_button', {
-                buttonUrl: path('season_new'),
+                buttonUrl: path('season_new', {programId: program.id}),
                 buttonText: "ajout d'une saison"
             }) }}
             {{ component('_button', {

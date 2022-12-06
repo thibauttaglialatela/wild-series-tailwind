@@ -27,8 +27,8 @@
     </table>
 
     {{ component('_button', {
-        buttonUrl: path('season_index'),
-        buttonText: 'Retour à la liste'
+        buttonUrl: path('program_season_show', {'programId': program.id, 'seasonId': season.id}),
+        buttonText: 'Retour'
     }) }}
 {{ component('_button', {
     buttonUrl: path('season_edit', {'id': season.id, 'program_id': program.id}),

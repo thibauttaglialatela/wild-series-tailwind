@@ -7,7 +7,6 @@
 <section class="flex justify-center items-center">
     <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-xl">
         {{ include('season/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
         <div class="mt-5">
             {{ component('_button', {
                 buttonUrl: path('program_season_show', {'programId': program.id, 'seasonId': season.id}),

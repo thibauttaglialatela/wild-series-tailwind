@@ -25,7 +25,7 @@
         </div>
         <div>
             {{ component('_button', {
-                buttonUrl: path('season_show', {'id': season.id}),
+                buttonUrl: path('season_show', {'id': season.id, 'programId': program.id}),
                 buttonText: "Montrer"
             }) }}
             {{ component('_button', {

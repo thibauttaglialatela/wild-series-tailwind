@@ -22,10 +22,6 @@
                 <td>{{ season.number }}</td>
                 <td>{{ season.year }}</td>
                 <td>{{ season.description }}</td>
-                <td>{{ season.program.title }}</td>
-                <td>
-{#                    <a href="{{ path('season_show', {'id': season.id}) }}">Montrer</a>#}
-                </td>
             </tr>
         {% else %}
             <tr>
@@ -34,8 +30,4 @@
         {% endfor %}
         </tbody>
     </table>
-{{ component('_button', {
-    buttonUrl: path('season_new'),
-    buttonText: 'Créer une nouvelle saison'
-}) }}
 {% endblock %}

@@ -25,7 +25,7 @@ class Season
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(cascade: ["remove"], inversedBy: 'seasons')]
+    #[ORM\ManyToOne( inversedBy: 'seasons')]
     private ?Program $program = null;
 
     /** @var Collection<int, Episode> */
