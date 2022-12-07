@@ -22,7 +22,7 @@
 
                     <ol class="list-decimal">
                         <h3 class="text-center font-bold">Saisons</h3>
-                        {% for season in seasons %}
+                        {% for season in seasons|sort((a,b) => a.number <=> b.number) %}
                             <li class="text-center"><a
                                         href="{{ path('program_season_show', {programId: program.id, seasonId: season.id}) }}"
                                         class="hover:underline">Saison - {{ season.number }}</a></li>

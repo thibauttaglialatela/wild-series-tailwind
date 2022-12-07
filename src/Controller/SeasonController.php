@@ -31,6 +31,7 @@ class SeasonController extends AbstractController
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $season->setProgram($program);
             $seasonRepository->save($season, true);
 
             return $this->redirectToRoute('program_show', ['id' => $program->getId()], Response::HTTP_SEE_OTHER);

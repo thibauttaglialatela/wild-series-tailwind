@@ -30,11 +30,11 @@ class EpisodeType extends AbstractType
                 'label_attr' => ['class' => 'Text-white Text-medium'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
-            ->add('season', null, [
+            /*->add('season', null, [
                 'choice_label' => 'number',
                 'label_attr' => ['class' => 'Text-white Text-medium'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
-            ])
+            ])*/
         ;
     }
 

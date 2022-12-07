@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Episode;
+use App\Entity\Program;
+use App\Entity\Season;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,22 +24,27 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EpisodeRepository $episodeRepository): Response
+    #[Route('/season/{season_id}/program/{program_id}/new', name: 'new', methods: ['GET', 'POST'])]
+    #[ParamConverter('season', class: 'App\Entity\Season',options: ['mapping' => ['season_id' => 'id']])]
+    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_id' => 'id']])]
+    public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $episode->setSeason($season);
             $episodeRepository->save($episode, true);
 
-            return $this->redirectToRoute('episode_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'programId' => $program->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('episode/new.html.twig', [
             'episode' => $episode,
             'form' => $form,
+            'season' => $season,
+            'program' => $program,
         ]);
     }
 
@@ -66,13 +74,15 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
-    public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository): Response
+    #[Route('/{id}/program/{programId}/season/{seasonId}', name: 'delete', methods: ['POST', 'DELETE'])]
+    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['programId' => 'id']])]
+    #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['seasonId' => 'id']])]
+    public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
         if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
             $episodeRepository->remove($episode, true);
         }
 
-        return $this->redirectToRoute('episode_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('program_season_show', ['programId' => $program->getId(), 'seasonId' => $season->getId()], Response::HTTP_SEE_OTHER);
     }
 }

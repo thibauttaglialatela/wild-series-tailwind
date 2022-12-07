@@ -10,6 +10,9 @@
             <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Résumé de l'épisode</h3>
             <p class="font-sans text-left mx-4 lg:mx-20 text-base md:text-xl xl:text-2xl">{{ episode.synopsis }}</p>
         </section>
+        <div>
+            {% include 'episode/_delete_form.html.twig' %}
+        </div>
         <div class="mb-10">
             {{ component('_button', {
                 buttonUrl: path('program_season_show', {programId: program.id, seasonId: season.id}),

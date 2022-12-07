@@ -23,7 +23,7 @@ class Episode
     #[ORM\Column(type: Types::TEXT)]
     private ?string $synopsis = null;
 
-    #[ORM\ManyToOne(cascade: ["remove", "persist"], inversedBy: 'episodes')]
+    #[ORM\ManyToOne(cascade: ['remove'], inversedBy: 'episodes')]
     private ?Season $season = null;
 
     public function getId(): ?int

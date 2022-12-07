@@ -30,12 +30,12 @@ class SeasonType extends AbstractType
                 'label_attr' => ['class' => 'Text-white Text-medium'],
                 'attr' => ['row' => 5, 'col' => 10, 'class' => 'text-black md:text-xl w-full']
             ])
-            ->add('program', null, [
+            /*->add('program', null, [
                 'choice_label' => 'title',
                 'label' => 'Série associée',
                 'label_attr' => ['class' => 'Text-white Text-medium'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
-                ],)
+                ],)*/
         ;
     }
 
