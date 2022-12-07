@@ -1,6 +1,9 @@
 {{ form_start(form) }}
-{{ form_row(form.number) }}
-{{ form_row(form.year) }}
-{{ form_row(form.description) }}
-<button class="btn text-center inline-block mt-5 px-6 py-2.5 bg-white text-black font-medium text-md leading-tight uppercase rounded hover:bg-black hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">{{ button_label|default('Sauvegarder') }}</button>
-{{ form_end(form) }}
+    {{ form_label(form.number) }}
+    {{ form_widget(form.number) }}
+    {{ form_label(form.year) }}
+    {{ form_widget(form.year) }}
+    {{ form_label(form.description) }}
+    {{ form_widget(form.description) }}
+    <button class="btn text-center inline-block mt-5 px-6 py-2.5 bg-white text-black font-medium text-md leading-tight uppercase rounded hover:bg-black hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">{{ button_label|default('Sauvegarder') }}</button>
+    {{ form_end(form) }}

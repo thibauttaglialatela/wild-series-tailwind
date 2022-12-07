@@ -23,7 +23,7 @@
                 </ul>
             </div>
         </div>
-        <div>
+        <div class="flex flex-col md:flex-row md:w-screen md:justify-evenly">
             {{ component('_button', {
                 buttonUrl: path('season_show', {'id': season.id, 'programId': program.id}),
                 buttonText: "Montrer"
