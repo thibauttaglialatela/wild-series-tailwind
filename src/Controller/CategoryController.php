@@ -17,27 +17,28 @@ class CategoryController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(CategoryRepository $categoryRepository): Response
     {
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findBy([],['name' => 'ASC']);
         return $this->render('category/_index.html.twig', [
             'categories' => $categories,
         ]);
     }
 
-#[Route('/new', name: 'new')]
-public function new(Request $request, CategoryRepository $categoryRepository):Response
-{
-$category = new Category();
-$form = $this->createForm(CategoryType::class, $category);
-$form->handleRequest($request);
+    #[Route('/new', name: 'new')]
+    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
 
-if ($form->isSubmitted() && $form->isValid()){
-    $categoryRepository->save($category, true);
-    return $this->redirectToRoute('Home_page', [], Response::HTTP_CREATED);
-}
-return $this->renderForm('category/new.html.twig', [
-    'form' => $form,
-]);
-}
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryRepository->save($category, true);
+            return $this->redirectToRoute('Home_page', [], Response::HTTP_CREATED);
+        }
+        return $this->renderForm('category/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/{categoryName}', name: 'show', methods: ['GET'])]
     public function show(string $categoryName, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response
     {
@@ -53,5 +54,31 @@ return $this->renderForm('category/new.html.twig', [
             'program_by_category' => $programByCategory,
             'category' => $category,
         ]);
+    }
+
+    #[Route('/edit/{id}', name: 'edit', methods: ['POST', 'GET'])]
+    public function edit(Request $request, Category $category, CategoryRepository $categoryRepository): Response
+    {
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryRepository->save($category, true);
+            return $this->redirectToRoute('category_show', ['categoryName' => $category->getName()], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('category/edit.html.twig', [
+            'form' => $form,
+            'category' => $category,
+        ]);
+
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
+    public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$category->getId(),$request->get('_token'))){
+            $categoryRepository->remove($category, true);
+        }
+        return $this->redirectToRoute('Home_page', [],Response::HTTP_SEE_OTHER);
     }
 }

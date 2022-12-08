@@ -54,7 +54,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{programId}/season/{seasonId}', name: 'season_show', requirements: ['programId' => '\d+', 'seasonId' => '\d+'])]
-    #[Entity('program', options: ['id' => 'programId'])]
+    #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ["programId" => "id"]])]
     #[ParamConverter("season", class: "App\Entity\Season", options: ["mapping" => ["seasonId" => "id"]])]
     public function showSeason(Program $program, Season $season): Response
     {
@@ -78,5 +78,32 @@ class ProgramController extends AbstractController
             'episode' => $episode,
         ]);
 
+    }
+
+    #[Route('/{id}/edit', name: "edit",requirements: ['id' => '\d+'])]
+    public function edit(Request $request, Program $program, ProgramRepository $programRepository): Response
+    {
+        $form = $this->createForm(ProgramType::class, $program);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $programRepository->save($program, true);
+
+            return $this->redirectToRoute('program_show', ['id'=>$program->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('program/edit.html.twig', [
+            'form' => $form,
+            'program' => $program,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
+    public function delete(Program $program, ProgramRepository $programRepository, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->get('_token'))) {
+            $programRepository->remove($program, true);
+        }
+        return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }
 }

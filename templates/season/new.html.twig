@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Nouvelle saison{% endblock %}
+
+{% block body %}
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Création d'une nouvelle saison</h1>
+<section class="flex justify-center items-center">
+    <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
+        {{ include('season/_form.html.twig') }}
+        <h4 class="Text-white Text-medium">Série associée : {{ program.title }}</h4>
+        <div class="mt-5">
+            {{ component('_button', {
+                buttonUrl: path('program_show', {'id': program.id}),
+                buttonText: 'Retour',
+            }) }}
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

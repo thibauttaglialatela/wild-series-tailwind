@@ -25,7 +25,6 @@ class Category
     )]
     private ?string $name = null;
 
-    /** @var Collection<int, Program>  */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
     private Collection $programs;
 

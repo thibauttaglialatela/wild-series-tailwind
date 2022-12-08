@@ -22,7 +22,7 @@
 
                     <ol class="list-decimal">
                         <h3 class="text-center font-bold">Saisons</h3>
-                        {% for season in seasons %}
+                        {% for season in seasons|sort((a,b) => a.number <=> b.number) %}
                             <li class="text-center"><a
                                         href="{{ path('program_season_show', {programId: program.id, seasonId: season.id}) }}"
                                         class="hover:underline">Saison - {{ season.number }}</a></li>
@@ -32,12 +32,20 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-center m-9">
+        <div class="flex justify-around m-9">
              {{ component('_button', {
                 buttonUrl: path('category_show', {categoryName: program.category.name}),
                 buttonText: 'Retour'
             })
             }}
+            {{ component('_button', {
+                buttonUrl: path('season_new', {programId: program.id}),
+                buttonText: "ajout d'une saison"
+            }) }}
+            {{ component('_button', {
+                buttonUrl: path('program_edit', {id: program.id}),
+                buttonText: "éditer la série",
+            }) }}
         </div>
     </div>
 

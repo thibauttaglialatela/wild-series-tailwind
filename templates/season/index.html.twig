@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Liste des saisons{% endblock %}
+
+{% block body %}
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Liste des saisons</h1>
+    <table class="min-w-full mb-5">
+        <thead class="bg-transparent border-b">
+            <tr>
+                <th>Id</th>
+                <th>Numéro</th>
+                <th>Année</th>
+                <th>Description</th>
+                <th>Série</th>
+{#                <th>actions</th>#}
+            </tr>
+        </thead>
+        <tbody>
+        {% for season in seasons %}
+            <tr class="bg-gray-100 border-b">
+                <td>{{ season.id }}</td>
+                <td>{{ season.number }}</td>
+                <td>{{ season.year }}</td>
+                <td>{{ season.description }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
