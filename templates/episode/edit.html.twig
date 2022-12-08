@@ -4,10 +4,18 @@
 
 {% block body %}
     <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">Editer un épisode</h1>
-
-    {{ include('episode/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
-    <a href="{{ path('episode_index') }}">Revenir à la liste</a>
-
+<section class="flex flex-col justify-center items-center">
+    <div class="flex flex-col items-center p-6 my-5 rounded-lg shadow-lg bg-red max-w-xl">
+        {{ include('episode/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <div class="mt-5">
+            {{ component('_button', {
+                buttonUrl: path('program_episode_show', {'programId': program.id, "seasonId": season.id, 'episodeId': episode.id}),
+                buttonText: 'Retour',
+            }) }}
+        </div>
+    </div>
     {{ include('episode/_delete_form.html.twig') }}
+</section>
+
+
 {% endblock %}

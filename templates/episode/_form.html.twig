@@ -3,5 +3,7 @@
 {{ form_row(form.number) }}
 {{ form_row(form.synopsis) }}
 {#{{ form_row(form.season) }}#}
+<div class="flex space-x-2 justify-center">
     <button class="btn text-center inline-block mt-5 px-6 py-2.5 bg-white text-black font-medium text-md leading-tight uppercase rounded hover:bg-black hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">{{ button_label|default('Sauvegarder') }}</button>
+</div>
 {{ form_end(form) }}
