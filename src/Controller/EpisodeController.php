@@ -56,8 +56,10 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository): Response
+    #[Route('/program/{program_id}/season/{season_id}/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_id' => 'id']])]
+    #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
+    public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
@@ -70,7 +72,9 @@ class EpisodeController extends AbstractController
 
         return $this->renderForm('episode/edit.html.twig', [
             'episode' => $episode,
+            'program' => $program,
             'form' => $form,
+            'season' => $season,
         ]);
     }
 
