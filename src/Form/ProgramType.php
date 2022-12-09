@@ -31,7 +31,8 @@ class ProgramType extends AbstractType
             ->add('poster', TextType::class, [
                 'label' => 'Illustration',
                 'label_attr' => ['class' => 'Text-white Text-medium'],
-                'attr' => ['class' => 'text-black md:text-xl w-full']
+                'attr' => ['class' => 'text-black md:text-xl w-full'],
+                'required' => false,
             ])
             ->add('country', TextType::class, [
                 'label' => 'Pays',
@@ -44,6 +45,7 @@ class ProgramType extends AbstractType
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('category', EntityType::class, [
+                'label' => 'Catégorie',
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'text-black md:text-xl w-full']
