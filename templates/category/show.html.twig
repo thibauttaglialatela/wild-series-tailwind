@@ -22,7 +22,7 @@
             </div>
         {% endfor %}
     </section>
-    <div class="flex justify-center">
+    <div class="flex justify-center mb-5">
         {{ include('category/_delete_form.html.twig') }}
         {{ component('_button', {
             buttonUrl: path('category_edit', {'id': category.id}),

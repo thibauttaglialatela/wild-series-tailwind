@@ -18,34 +18,35 @@ class ProgramType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label'=>'Titre de la série',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('synopsis', TextareaType::class, [
                 'label' => 'Résumé de la série',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['row' => 5, 'col' => 10, 'class' => 'text-black md:text-xl w-full'],
                 'sanitize_html' => true,
 
             ])
             ->add('poster', TextType::class, [
                 'label' => 'Illustration',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full'],
                 'required' => false,
             ])
             ->add('country', TextType::class, [
                 'label' => 'Pays',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('year', TextType::class, [
                 'label' => 'Année de création',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('category', EntityType::class, [
                 'label' => 'Catégorie',
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'text-black md:text-xl w-full']

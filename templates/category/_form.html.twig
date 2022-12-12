@@ -1,3 +1,7 @@
 {{ form_start(form) }}
-{{ form_widget(form) }}
+<div class="bg-black text-red text-sm mt-2 md:mt-5">
+    {{ form_errors(form.name) }}
+</div>
+{{ form_label(form.name) }}
+{{ form_widget(form.name) }}
 {{ form_end(form) }}

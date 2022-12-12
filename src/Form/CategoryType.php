@@ -16,7 +16,7 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la catégorie',
-                'label_attr' => ['class' => 'font-serif uppercase text-lg'],
+                'label_attr' => ['class' => 'text-white text-lg md:text-3xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black w-full'],
             ])
             ->add('save', SubmitType::class, [

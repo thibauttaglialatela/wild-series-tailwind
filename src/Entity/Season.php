@@ -32,7 +32,6 @@ class Season
     private ?string $description = null;
 
     #[ORM\ManyToOne( inversedBy: 'seasons')]
-    #[Assert\NotBlank]
     private ?Program $program = null;
 
     /** @var Collection<int, Episode> */

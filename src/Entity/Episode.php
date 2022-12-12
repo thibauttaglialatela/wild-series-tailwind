@@ -30,7 +30,6 @@ class Episode
     private ?string $synopsis = null;
 
     #[ORM\ManyToOne(cascade: ['remove'], inversedBy: 'episodes')]
-    #[Assert\NotBlank]
     private ?Season $season = null;
 
     public function getId(): ?int

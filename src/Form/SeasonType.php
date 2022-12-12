@@ -16,26 +16,20 @@ class SeasonType extends AbstractType
         $builder
             ->add('number', NumberType::class, [
                 'label' => 'Numéro de la saison',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('year', NumberType::class, [
                 'label' => 'Année',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
 
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'résumé de la saison',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white text-base md:text-2xl font-serif font-bold'],
                 'attr' => ['row' => 5, 'col' => 10, 'class' => 'text-black md:text-xl w-full']
             ])
-            /*->add('program', null, [
-                'choice_label' => 'title',
-                'label' => 'Série associée',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
-                'attr' => ['class' => 'text-black md:text-xl w-full']
-                ],)*/
         ;
     }
 
