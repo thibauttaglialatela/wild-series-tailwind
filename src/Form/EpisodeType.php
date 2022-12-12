@@ -17,24 +17,19 @@ class EpisodeType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre de l\'épisode',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('number', NumberType::class, [
                 'label' => 'numéro',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('synopsis', TextareaType::class, [
                 'label' => 'Résumé',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
-            /*->add('season', null, [
-                'choice_label' => 'number',
-                'label_attr' => ['class' => 'Text-white Text-medium'],
-                'attr' => ['class' => 'text-black md:text-xl w-full']
-            ])*/
         ;
     }
 

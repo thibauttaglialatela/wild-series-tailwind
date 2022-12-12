@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EpisodeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EpisodeRepository::class)]
 class Episode
@@ -15,12 +16,17 @@ class Episode
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255, maxMessage: 'Le titre ne doit pas dépasser {{ limit }} caractéres de long')]
     private ?string $title = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     private ?int $number = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $synopsis = null;
 
     #[ORM\ManyToOne(cascade: ['remove'], inversedBy: 'episodes')]
