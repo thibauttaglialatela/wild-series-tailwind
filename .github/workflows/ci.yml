@@ -1,0 +1,17 @@
+name: phpstan
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: PHPStan
+        uses: chindit/actions-phpstan@master
+        with:
+          arguments: 'src/ --level=9'
