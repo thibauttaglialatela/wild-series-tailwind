@@ -5,7 +5,12 @@
         <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">{{ program.title }}</h1>
         <div class="md:grid md:grid-cols-2 flex flex-col space-y-8">
             <div class="flex justify-center">
-                <img src="{{ program.poster }}" alt="{{ program.title }}">
+                {% if program.poster is not empty %}
+                    <img src="{{ program.poster }}" alt="{{ program.title }}">
+                    {% else %}
+                        <img src="https://picsum.photos/id/184/300/200" alt="ordinateur" class="w-full h-auto object-contain rounded-t-lg">
+                {% endif %}
+
             </div>
             <div>
                 <div class="md:flex md:justify-around my-2 md:my-5">
