@@ -36,6 +36,7 @@ class ProgramController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
+            $this->addFlash('green', 'Une série a bien été ajoutée.');
             return $this->redirectToRoute('program_index', [], Response::HTTP_CREATED);
         }
         return $this->renderForm('program/new.html.twig', [
@@ -88,6 +89,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
+            $this->addFlash('green', 'La série a bien été édité.');
 
             return $this->redirectToRoute('program_show', ['id'=>$program->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -103,6 +105,7 @@ class ProgramController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->get('_token'))) {
             $programRepository->remove($program, true);
+            $this->addFlash('red', 'La série a été supprimé !');
         }
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }

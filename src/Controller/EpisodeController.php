@@ -36,6 +36,7 @@ class EpisodeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $episode->setSeason($season);
             $episodeRepository->save($episode, true);
+            $this->addFlash('green', "Un épisode a bien été ajouté");
 
             return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'programId' => $program->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -66,8 +67,9 @@ class EpisodeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episodeRepository->save($episode, true);
+            $this->addFlash('green', 'L\'épisode a bien été édité');
 
-            return $this->redirectToRoute('episode_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'programId' => $program->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('episode/edit.html.twig', [
@@ -85,6 +87,7 @@ class EpisodeController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
             $episodeRepository->remove($episode, true);
+            $this->addFlash('red', "Attention un épisode a été supprimé !");
         }
 
         return $this->redirectToRoute('program_season_show', ['programId' => $program->getId(), 'seasonId' => $season->getId()], Response::HTTP_SEE_OTHER);

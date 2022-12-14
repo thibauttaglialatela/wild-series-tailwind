@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-// const plugin = require("tailwindcss");
+const plugin = require("tailwindcss");
 module.exports = {
     content: [
         "./assets/**/*.js",
@@ -11,6 +11,7 @@ module.exports = {
             black: '#070600',
             red: '#f76c6c',
             white: '#eee',
+            green: '#0f8d0f',
         },
         fontFamily: {
             sans: ['"Open Sans"', "sans-serif"],

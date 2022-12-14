@@ -5,7 +5,12 @@
         <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">{{ program.title }}</h1>
         <div class="md:grid md:grid-cols-2 flex flex-col space-y-8">
             <div class="flex justify-center">
-                <img src="{{ program.poster }}" alt="{{ program.title }}">
+                {% if program.poster is not empty %}
+                    <img src="{{ program.poster }}" alt="{{ program.title }}">
+                    {% else %}
+                        <img src="https://picsum.photos/id/184/300/200" alt="ordinateur" class="w-full h-auto object-contain rounded-t-lg">
+                {% endif %}
+
             </div>
             <div>
                 <div class="md:flex md:justify-around my-2 md:my-5">
@@ -20,14 +25,19 @@
 
                 <div class="md:flex md:justify-evenly">
 
-                    <ol class="list-decimal">
+                    <ul>
                         <h3 class="text-center font-bold">Saisons</h3>
+                        {% if seasons is empty %}
+                            <div>
+                                <p class="text-base text-center md:text-xl">Aucune saison pour cette série</p>
+                            </div>
+                        {% endif %}
                         {% for season in seasons|sort((a,b) => a.number <=> b.number) %}
                             <li class="text-center"><a
                                         href="{{ path('program_season_show', {programId: program.id, seasonId: season.id}) }}"
                                         class="hover:underline">Saison - {{ season.number }}</a></li>
                         {% endfor %}
-                    </ol>
+                    </ul>
                     <h3 class="text-center font-bold">Acteurs</h3>
                 </div>
             </div>
