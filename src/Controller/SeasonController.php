@@ -65,6 +65,7 @@ class SeasonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $seasonRepository->save($season, true);
+            $this->addFlash('green', 'La saison a été éditée.');
 
             return $this->redirectToRoute('program_season_show', ['programId'=> $program->getId(), 'seasonId'=>$season->getId()], Response::HTTP_SEE_OTHER);
         }
