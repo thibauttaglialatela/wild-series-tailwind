@@ -20,9 +20,19 @@
         {% endblock %}
 
     </head>
+
     <body class="bg-black text-white flex flex-col h-screen">
+
     <header class="sticky top-0 z-30">{% include '_navbar.html.twig' %}</header>
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="bg-{{ category }} rounded-lg py-5 px-6 mb-4 text-2xl text-white mb-3">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <main class="flex-grow">
+
         {% block body %}{% endblock %}
     </main>
     <footer>{% include '_footer.html.twig' %}</footer>
