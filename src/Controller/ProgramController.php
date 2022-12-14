@@ -89,6 +89,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
+            $this->addFlash('green', 'La série a bien été édité.');
 
             return $this->redirectToRoute('program_show', ['id'=>$program->getId()], Response::HTTP_SEE_OTHER);
         }
