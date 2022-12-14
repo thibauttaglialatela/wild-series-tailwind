@@ -25,7 +25,7 @@
 
                 <div class="md:flex md:justify-evenly">
 
-                    <ol class="list-decimal">
+                    <ul>
                         <h3 class="text-center font-bold">Saisons</h3>
                         {% if seasons is empty %}
                             <div>
@@ -37,7 +37,7 @@
                                         href="{{ path('program_season_show', {programId: program.id, seasonId: season.id}) }}"
                                         class="hover:underline">Saison - {{ season.number }}</a></li>
                         {% endfor %}
-                    </ol>
+                    </ul>
                     <h3 class="text-center font-bold">Acteurs</h3>
                 </div>
             </div>
