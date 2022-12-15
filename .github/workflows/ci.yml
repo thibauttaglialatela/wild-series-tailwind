@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+    - main
 
 jobs:
   build-test:
@@ -13,6 +16,6 @@ jobs:
       with:
         path: src/
         configuration: ./phpstan.neon
-        php_extensions: curl date exif fileinfo ftp gd hash iconv intl json libxml mbstring mysqli mysqlnd openssl PDO pdo_mysql Phar session SimpleXML sodium 
+        php_version: 8.1
 
     # ... then your own project steps ...
