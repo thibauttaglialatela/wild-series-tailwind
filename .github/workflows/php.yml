@@ -32,7 +32,9 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
       
-    - name: OSKAR-phpstan
-      # You may pin to the exact commit or the version.
-      uses: OskarStark/phpstan-ga@cb1ba85d1bc90b4d68dd4e90a5bb2fcf33b8311e
-      # uses: OskarStark/phpstan-ga@1.7.0
+    - name: PHPStan
+      uses: docker://oskarstark/phpstan-ga
+      env:
+        REQUIRE_DEV: true
+      with:
+        args: analyse src/ --level=9
