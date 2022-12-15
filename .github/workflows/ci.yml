@@ -11,13 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: baschny/php-composer-action@v1
-      with:
-        command: composer install --no-interaction --optimize-autoloader --classmap-authoritative
-    - uses: php-actions/phpstan@v3
-      with:
-        path: src/
-        configuration: ./phpstan.neon
-        php_version: latest
+    - uses: MilesChou/composer-action@v1.0.2
 
     # ... then your own project steps ...
