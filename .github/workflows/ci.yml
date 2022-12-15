@@ -13,6 +13,5 @@ jobs:
       with:
         path: src/
         configuration: ./phpstan.neon
-        level: 7
 
     # ... then your own project steps ...
