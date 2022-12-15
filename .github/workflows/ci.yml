@@ -16,6 +16,6 @@ jobs:
       with:
         path: src/
         configuration: ./phpstan.neon
-        php_version: 8.1
+        php_version: latest
 
     # ... then your own project steps ...
