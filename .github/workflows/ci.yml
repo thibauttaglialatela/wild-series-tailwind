@@ -13,5 +13,6 @@ jobs:
       with:
         path: src/
         configuration: ./phpstan.neon
+        php_extension: curl date exif fileinfo ftp gd hash iconv intl json libxml mbstring mysqli mysqlnd openssl PDO pdo_mysql Phar session SimpleXML sodium 
 
     # ... then your own project steps ...
