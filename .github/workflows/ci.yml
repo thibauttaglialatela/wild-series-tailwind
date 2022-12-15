@@ -1,22 +1,18 @@
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+name: CI
 
-name: Test
+on: [push]
 
 jobs:
-  phpstan:
-    name: PHPStan
-
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: "Checkout"
-      uses: actions/checkout@v2
-
-    - name: PHPStan
-      uses: docker://oskarstark/phpstan-ga
+    - uses: actions/checkout@v3
+    - uses: php-actions/composer@v6 # or alternative dependency management
+    - uses: php-actions/phpstan@v3
       with:
-        args: analyse src/ --level=5
+        path: src/
+        configuration: ./phpstan.neon
+        level: 7
+
+    # ... then your own project steps ...
