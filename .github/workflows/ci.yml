@@ -12,6 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: php-actions/composer@v6 # or alternative dependency management
+      with:
+        command: APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear
     - uses: php-actions/phpstan@v3
       with:
         path: src/
