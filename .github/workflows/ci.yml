@@ -11,6 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: MilesChou/composer-action@v1.0.2
+    - uses: nick-zh/composer@php8.1
 
     # ... then your own project steps ...
