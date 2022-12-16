@@ -13,3 +13,5 @@ parameters:
     - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9]*[()]* has no return type specified#'
     symfony:
         container_xml_path: var/cache/dev/App_KernelDevDebugContainer.xml
+    scanDirectories:
+        - var/cache/dev/Symfony/Config
