@@ -15,6 +15,6 @@ jobs:
     - uses: php-actions/phpstan@v3
       with:
         path: src/
-        configuration: ../../phpstan.neon
+        configuration: phpstan.neon
 
     # ... then your own project steps ...
