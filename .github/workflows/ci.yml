@@ -16,5 +16,5 @@ jobs:
       run: composer install
       
     - name: lauch phpstan analyse
-      run: ./vendor/bin/phpstan analyse src --level 5 -c phpstan.neon
+      run: ./vendor/bin/phpstan analyse src --level 5
     # ... then your own project steps ...
