@@ -12,9 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: php-actions/composer@v6
-    - uses: php-actions/phpstan@v3.0.1
-      with:
-        path: src/
+    - uses: chindit/actions-phpstan@1.0.1
         
 
     # ... then your own project steps ...
