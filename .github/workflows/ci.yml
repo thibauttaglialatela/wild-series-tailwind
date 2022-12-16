@@ -15,5 +15,7 @@ jobs:
     - name: install composer
       run: composer install
       
-    - uses: OskarStark/phpstan-ga@1.7.0
+    - uses: pipeline-components/php-codesniffer@v0.12.3
+      with:
+        directory: src/
     # ... then your own project steps ...
