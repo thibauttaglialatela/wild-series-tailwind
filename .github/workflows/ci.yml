@@ -13,9 +13,5 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: install composer
-      run: composer install
-      
-    - name: run phpstan
-      run: composer run-script phpstan
-        
+      run: composer install        
     # ... then your own project steps ...
