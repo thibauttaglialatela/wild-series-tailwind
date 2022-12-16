@@ -12,10 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: php-actions/composer@v6
-    - uses: actions-x/phpstan@v1
+    - uses: php-actions/phpstan@v3.0.1
       with:
-        paths: src/
-        configPath: ./phpstan.neon
+        path: src/
+        configuration: ./phpstan.neon
         
 
     # ... then your own project steps ...
