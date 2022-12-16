@@ -18,7 +18,7 @@ jobs:
         php_version: 8.1
         configuration: ./phpstan.neon
         level: 9
-        command: clear-result-cache
+        command: analyse
     
 
     # ... then your own project steps ...
