@@ -15,11 +15,7 @@ jobs:
     - name: install composer
       run: composer install
       
-    - uses: php-actions/phpstan@v3
-      with:
-        php_version: 8.1
-        path: src/
-        configuration: ./phpstan.neon
-        command: analyse
+    - name: run phpstan
+      run: composer run-script phpstan
         
     # ... then your own project steps ...
