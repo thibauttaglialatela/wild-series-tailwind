@@ -12,4 +12,4 @@ parameters:
     ignoreErrors:
     - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9]*[()]* has no return type specified#'
     symfony:
-        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+        containerXmlPath: %rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml
