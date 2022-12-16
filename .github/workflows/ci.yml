@@ -12,9 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: php-actions/composer@v6
-    - uses: docker://oskarstark/phpstan-ga
+    - uses: php-actions/phpstan@v3
       with:
-        args: analyse src/ --level=9
+        path: src/
+        php_version: 8.1
+        configuration: ./phpstan.neon
+        level: 9
+        command: phpstan clear-result-cache
     
 
     # ... then your own project steps ...
