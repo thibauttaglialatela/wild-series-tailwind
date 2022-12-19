@@ -15,3 +15,5 @@ jobs:
     - name: install composer
       run: composer install        
     # ... then your own project steps ...
+    - name: run phpstan
+      run: composer run-script phpstan
