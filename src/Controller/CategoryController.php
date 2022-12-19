@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 #[Route('/category', name: 'category_')]
 class CategoryController extends AbstractController
@@ -76,7 +77,11 @@ class CategoryController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
     public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(),$request->get('_token'))){
+        $token = $request->get('_token');
+        if(!is_string($token)) {
+            throw new InvalidCsrfTokenException('error of the Csrf token');
+        }
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), $token)){
             $categoryRepository->remove($category, true);
         }
         return $this->redirectToRoute('Home_page', [],Response::HTTP_SEE_OTHER);

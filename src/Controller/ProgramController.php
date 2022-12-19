@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -89,7 +90,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
-            $this->addFlash('green', 'La série a bien été édité.');
+            $this->addFlash('green', 'La série a bien été éditée.');
 
             return $this->redirectToRoute('program_show', ['id'=>$program->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -103,7 +104,11 @@ class ProgramController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
     public function delete(Program $program, ProgramRepository $programRepository, Request $request): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->get('_token'))) {
+        $token = $request->get('_token');
+        if (!is_string($token)) {
+            throw new InvalidCsrfTokenException('error on the Csrf token');
+        }
+        if ($this->isCsrfTokenValid('delete'.$program->getId(), $token)) {
             $programRepository->remove($program, true);
             $this->addFlash('red', 'La série a été supprimé !');
         }

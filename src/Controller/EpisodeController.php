@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 #[Route('/episode', name: 'episode_')]
 class EpisodeController extends AbstractController
@@ -85,7 +86,11 @@ class EpisodeController extends AbstractController
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['seasonId' => 'id']])]
     public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
+        $token = $request->get('_token');
+        if(!is_string($token)){
+            throw new InvalidCsrfTokenException('erreur');
+        }
+        if ($this->isCsrfTokenValid('delete'.$episode->getId(), $token)) {
             $episodeRepository->remove($episode, true);
             $this->addFlash('red', "Attention un épisode a été supprimé !");
         }

@@ -11,5 +11,6 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
     - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9]*[()]* has no return type specified#'
+    - '/Cannot call method getId\(\) on ([A-Za-z0-9]+(\\[A-Za-z0-9]+)+).*[a-zA-Z]+/'
     symfony:
         containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml

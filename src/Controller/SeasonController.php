@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 #[Route('/season', name: 'season_')]
 class SeasonController extends AbstractController
@@ -80,8 +81,11 @@ class SeasonController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Season $season, SeasonRepository $seasonRepository): Response
     {
-
-        if ($this->isCsrfTokenValid('delete'.$season->getId(), $request->request->get('_token'))) {
+        $token = $request->get('_token');
+        if (!is_string($token)) {
+            throw new InvalidCsrfTokenException('error');
+        }
+        if ($this->isCsrfTokenValid('delete'.$season->getId(), $token)) {
             $seasonRepository->remove($season, true);
             $this->addFlash('red', 'La saison a été supprimé !');
         }
