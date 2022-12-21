@@ -7,8 +7,9 @@
             <div class="flex justify-center">
                 {% if program.poster is not empty %}
                     <img src="{{ program.poster }}" alt="{{ program.title }}">
-                    {% else %}
-                        <img src="https://picsum.photos/id/184/300/200" alt="ordinateur" class="w-full h-auto object-contain rounded-t-lg">
+                {% else %}
+                    <img src="https://picsum.photos/id/184/300/200" alt="ordinateur"
+                         class="w-full h-auto object-contain rounded-t-lg">
                 {% endif %}
 
             </div>
@@ -38,16 +39,31 @@
                                         class="hover:underline">Saison - {{ season.number }}</a></li>
                         {% endfor %}
                     </ul>
-                    <h3 class="text-center font-bold">Acteurs</h3>
+                    <div class="flex flex-col justify-center items-center">
+                        <h3 class="text-center font-bold">Acteurs :</h3>
+                        <div class="flex justify-center">
+                            <ul class="shadow shadow-red mb-2">
+                                {% for actor in program.actors %}
+                                    <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
+                                        <a href="{{ path('actor_show', { 'id': actor.id}) }}"
+                                           class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">{{ actor.firstname }} {{ actor.lastname }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
+                                        Aucun acteur pour cette série.
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="flex flex-col my-4 md:flex-row md:justify-evenly md:my-9">
-             {{ component('_button', {
+            {{ component('_button', {
                 buttonUrl: path('category_show', {categoryName: program.category.name}),
                 buttonText: 'Retour'
-            })
-            }}
+            }) }}
             {{ component('_button', {
                 buttonUrl: path('season_new', {programId: program.id}),
                 buttonText: "ajout d'une saison"
