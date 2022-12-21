@@ -25,6 +25,7 @@ class Actor
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birth_date = null;
 
+    /** @var Collection<int, Program>  */
     #[ORM\ManyToMany(targetEntity: Program::class, inversedBy: 'actors')]
     private Collection $programs;
 
@@ -34,6 +35,11 @@ class Actor
     public function __construct()
     {
         $this->programs = new ArrayCollection();
+    }
+
+    public function __toString():string
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
     }
 
     public function getId(): ?int

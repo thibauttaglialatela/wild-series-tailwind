@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Les acteurs{% endblock %}
+
+{% block body %}
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Les actrices et
+        acteurs</h1>
+    <section class="grid lg:grid-cols-3 mt-2 grid-flow-row">
+        {% for actor in actors %}
+            <div class="flex items-center flex-row justify-center max-w-sm md:max-w-md mx-4 mb-2 rounded-lg shadow-lg">
+                <div class="justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
+                    {% if actor.poster is not empty %}
+                        <img src="{{ actor.poster }}" alt="{{ actor.firstname }} {{ actor.lastname }}"
+                             class="w-full h-auto object-contain rounded-t-lg">
+                    {% else %}
+                        <img src="{{ asset('build/images/actor-image.jpg') }}"
+                             alt="{{ actor.firstname }} {{ actor.lastname }}">
+                    {% endif %}
+                    <div class="flex flex-row justify-evenly w-full">
+                        <h2 class="py-5 text-xl">{{ actor.firstname }} {{ actor.lastname }}</h2>
+                        <button>
+                            {{ component('_button', {
+                                buttonUrl: path('actor_show', {'id': actor.id}),
+                                buttonText: "Découvrir"
+                            }) }}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}
