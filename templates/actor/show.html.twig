@@ -4,11 +4,11 @@
 
 {% block body %}
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">{{ actor.firstname }} {{ actor.lastname }}</h1>
-    <div class="md:flex md:flex-row md:justify-around">
-        <img src="{{ asset('build/images/actor-image.jpg') }}" class="max-w-full h-auto rounded-full"
+    <div class="lg:flex lg:flex-row lg:justify-around lg:gap-x-8">
+        <img src="{{ asset('build/images/actor-image.jpg') }}" class="max-w-full h-auto lg:rounded-full"
              alt="{{ actor.firstname }} {{ actor.lastname }}">
         <div class="flex flex-col justify-center items-center">
-            <h4 class="font-medium leading-tight text-xl md:text-3xl mt-5 mb-2 text-white text-center">date de naissance
+            <h4 class="font-medium leading-tight text-lg lg:text-3xl mt-5 mb-2 text-white text-center">date de naissance
                 : Le {{ actor.birthDate|format_datetime('full', 'none', locale='fr') }}</h4>
         </div>
         <div class="flex flex-col justify-center items-center">
@@ -32,7 +32,7 @@
     </div>
 
 
-    <div class="flex flex-col items-center mt-5">
+    <div class="flex flex-col items-center my-5">
         {{ component('_button', {
             buttonUrl:'#',
             buttonText: 'Retour',
