@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
 class Actor
@@ -17,15 +18,25 @@ class Actor
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50,
+        maxMessage: 'Le prénom ne peut pas dépasser { limit } caractères')]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max:255,
+        maxMessage: 'Le nom de famille ne doit pas dépasser {limit} caractères'
+    )]
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank]
+    #[Assert\Type(\DateTimeInterface::class)]
     private ?\DateTimeInterface $birth_date = null;
 
-    /** @var Collection<int, Program>  */
+    /** @var Collection<int, Program> */
     #[ORM\ManyToMany(targetEntity: Program::class, inversedBy: 'actors')]
     private Collection $programs;
 
@@ -37,7 +48,7 @@ class Actor
         $this->programs = new ArrayCollection();
     }
 
-    public function __toString():string
+    public function __toString(): string
     {
         return $this->getFirstname() . ' ' . $this->getLastname();
     }

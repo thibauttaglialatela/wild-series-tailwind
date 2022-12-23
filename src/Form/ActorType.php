@@ -6,6 +6,8 @@ use App\Entity\Actor;
 use App\Entity\Program;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,23 +19,36 @@ class ActorType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom',
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
+                'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom de famille',
+                'label' => 'Nom',
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
+                'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('birth_date', DateType::class, [
                 'label' => 'Date de naissance',
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
+                'attr' => ['class' => 'text-black md:text-xl w-full'],
+                'widget' => 'single_text',
+                'input' => 'datetime',
             ])
             ->add('poster', TextType::class, [
-                'label' => 'Une photo',
+                'label' => 'Sa photo',
                 'required' => false,
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
+                'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('programs', EntityType::class, [
                 'class' => Program::class,
                 'choice_label' => 'title',
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
+                'label' => 'Les séries dans lesquelles il(elle) joue',
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
+                'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
         ;
     }

@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ parent() }} - Ajout d'une série{% endblock %}
+{% block title %}{{ parent() }} - Ajout d'un acteur{% endblock %}
+
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Création d'une nouvelle série</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Ajout d'un acteur</h1>
     <section class="flex flex-col justify-center items-center">
         <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
-            {% include('program/_form.html.twig') %}
+            {{ include('actor/_form.html.twig') }}
         </div>
         <div class="my-3 md:my-5">
             {{ component('_button', {
-                buttonUrl: path('program_index'),
+                buttonUrl: path('actor_index'),
                 buttonText: 'Retour',
             }) }}
         </div>
     </section>
-
 {% endblock %}

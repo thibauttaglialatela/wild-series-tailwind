@@ -5,6 +5,12 @@
 {% block body %}
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Les actrices et
         acteurs</h1>
+    <div class="flex flex-row justify-evenly mt-5">
+        {{ component('_button', {
+            buttonUrl: path('actor_new'),
+            buttonText: 'Créer la fiche d\'un acteur'
+        }) }}
+    </div>
     <section class="grid lg:grid-cols-3 mt-2 grid-flow-row">
         {% for actor in actors %}
             <div class="flex items-center flex-row justify-center max-w-sm md:max-w-md mx-4 mb-2 rounded-lg shadow-lg">

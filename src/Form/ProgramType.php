@@ -55,7 +55,7 @@ class ProgramType extends AbstractType
             ->add('actors', EntityType::class, [
                 'class' => Actor::class,
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
                 'label' => 'Les acteurs',
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
