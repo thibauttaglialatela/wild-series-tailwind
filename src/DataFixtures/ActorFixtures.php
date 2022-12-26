@@ -7,10 +7,21 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
     const NB_OF_ACTORS = 10;
+    private SluggerInterface $slugger;
+
+    /**
+     * @param SluggerInterface $slugger
+     */
+    public function __construct(SluggerInterface $slugger)
+    {
+        $this->slugger = $slugger;
+    }
+
     public function load(ObjectManager $manager): void
     {
 
@@ -19,6 +30,8 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
             $actor = new Actor();
             $actor->setFirstname($faker->firstName());
             $actor->setLastname($faker->lastName());
+            $slug = $this->slugger->slug($actor->getFirstname() . ' ' . $actor->getLastname());
+            $actor->setSlug($slug);
             $actor->setBirthDate($faker->dateTimeBetween('-80 years', '-20 years'));
             $actor->addProgram($this->getReference('program_' . rand(0, 29)));
             $actor->addProgram($this->getReference('program_' . rand(0, 29)));

@@ -6,5 +6,9 @@
         <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
             {{ include('actor/_form.html.twig', {'button_label':'Mettre à jour'}) }}
         </div>
+        {{ component('_button', {
+            buttonUrl: path('actor_show', {slug:actor.slug}),
+            buttonText: 'Retour'
+        }) }}
     </section>
 {% endblock %}

@@ -26,7 +26,7 @@
                         <h2 class="py-5 text-xl">{{ actor.firstname }} {{ actor.lastname }}</h2>
                         <button>
                             {{ component('_button', {
-                                buttonUrl: path('actor_show', {'id': actor.id}),
+                                buttonUrl: path('actor_show', {'slug': actor.slug}),
                                 buttonText: "Découvrir"
                             }) }}
                         </button>

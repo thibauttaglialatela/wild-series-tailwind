@@ -35,7 +35,7 @@
                         {% endif %}
                         {% for season in seasons|sort((a,b) => a.number <=> b.number) %}
                             <li class="text-center"><a
-                                        href="{{ path('program_season_show', {programId: program.id, seasonId: season.id}) }}"
+                                        href="{{ path('program_season_show', {slug: program.slug, seasonId: season.id}) }}"
                                         class="hover:underline">Saison - {{ season.number }}</a></li>
                         {% endfor %}
                     </ul>
@@ -45,7 +45,7 @@
                             <ul class="shadow shadow-red mb-2">
                                 {% for actor in program.actors %}
                                     <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
-                                        <a href="{{ path('actor_show', { 'id': actor.id}) }}"
+                                        <a href="{{ path('actor_show', { 'slug': actor.slug}) }}"
                                            class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">{{ actor.firstname }} {{ actor.lastname }}</a>
                                     </li>
                                 {% else %}
@@ -69,7 +69,7 @@
                 buttonText: "ajout d'une saison"
             }) }}
             {{ component('_button', {
-                buttonUrl: path('program_edit', {id: program.id}),
+                buttonUrl: path('program_edit', {slug: program.slug}),
                 buttonText: "éditer la série",
             }) }}
         </div>

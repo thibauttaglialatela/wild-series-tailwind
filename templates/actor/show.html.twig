@@ -21,7 +21,7 @@
                 <ul class="shadow shadow-red mb-2">
                     {% for program in actor.programs %}
                         <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
-                            <a href="{{ path('program_show', {'id': program.id}) }}"
+                            <a href="{{ path('program_show', {'slug': program.slug}) }}"
                                class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">{{ program.title }}</a>
                         </li>
                     {% else %}
@@ -38,7 +38,7 @@
 
     <div class="flex flex-col items-center gap-y-6 my-5 lg:flex-row lg:justify-around">
         {{ component('_button', {
-            buttonUrl: path('actor_edit', {id:actor.id}),
+            buttonUrl: path('actor_edit', {slug:actor.slug}),
             buttonText: 'éditer',
         }) }}
 

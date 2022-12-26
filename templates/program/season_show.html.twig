@@ -23,7 +23,7 @@
                     {% for episode in episodes|sort((a,b) => a.number <=> b.number) %}
                         <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
                             <a
-                                    href="{{ path('program_episode_show', {programId: program.id, seasonId: season.id, episodeId: episode.id}) }}">Episode {{ episode.number }} {{ episode.title }}</a></li>
+                                    href="{{ path('program_episode_show', {slug: program.slug, seasonId: season.id, episodeId: episode.id}) }}">Episode {{ episode.number }} {{ episode.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -43,7 +43,7 @@
             }) }}
         </div>
         {{ component('_button', {
-            buttonUrl: path('program_show', {'id': program.id}),
+            buttonUrl: path('program_show', {'slug': program.slug}),
             buttonText: "Retour"
         }) }}
     </div>

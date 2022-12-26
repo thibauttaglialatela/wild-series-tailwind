@@ -19,7 +19,7 @@
         </div>
         <div class="mb-10">
             {{ component('_button', {
-                buttonUrl: path('program_season_show', {programId: program.id, seasonId: season.id}),
+                buttonUrl: path('program_season_show', {slug: program.slug, seasonId: season.id}),
                 buttonText: "Retour à la saison"
             }) }}
         </div>
