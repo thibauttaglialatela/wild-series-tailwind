@@ -30,6 +30,11 @@ class EpisodeType extends AbstractType
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
+            ->add('duration', NumberType::class, [
+                'label' => 'Durée de l\'épisode',
+                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
+                'attr' => ['class' => 'text-black md:text-xl w-full']
+            ])
         ;
     }
 

@@ -32,6 +32,11 @@ class Episode
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'episodes')]
     private ?Season $season = null;
 
+    #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive]
+    private ?int $duration = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +86,18 @@ class Episode
     public function setSeason(?Season $season): self
     {
         $this->season = $season;
+
+        return $this;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

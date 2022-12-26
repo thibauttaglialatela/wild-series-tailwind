@@ -70,7 +70,7 @@ class EpisodeController extends AbstractController
             $episodeRepository->save($episode, true);
             $this->addFlash('green', 'L\'épisode a bien été édité');
 
-            return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'programId' => $program->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('episode/edit.html.twig', [
