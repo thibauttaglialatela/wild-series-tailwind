@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block  title %}{{ parent() }} - édition d'un acteur{% endblock %}
+{% block body %}
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Edition de la fiche d'un acteur</h1>
+    <section class="flex flex-col justify-center items-center">
+        <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
+            {{ include('actor/_form.html.twig', {'button_label':'Mettre à jour'}) }}
+        </div>
+    </section>
+{% endblock %}
