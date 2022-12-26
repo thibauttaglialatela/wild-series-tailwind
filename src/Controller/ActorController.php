@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Form\ActorType;
 use App\Repository\ActorRepository;
+use App\Repository\ProgramRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 #[Route('/actor', name: 'actor_')]
 class ActorController extends AbstractController
@@ -62,19 +64,17 @@ class ActorController extends AbstractController
         ]);
     }
 
-//    TODO: créer les méthodes delete
-
-    #[Route('/{id}', name: 'delete')]
-    public function delete(ManagerRegistry $doctrine, int $id): Response
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function delete(Actor $actor, ActorRepository $actorRepository, Request $request): Response
     {
-        $em = $doctrine->getManager();
-        $actor = $em->getRepository(Actor::class)->find($id);
-
-        if (!$actor) {
-            throw $this->createNotFoundException('Aucun acteur pour cet ' . $id);
+        $token = $request->get('_token');
+        if (!is_string($token)) {
+            throw new InvalidCsrfTokenException('error on the Csrf token');
         }
-        $em->remove($actor);
-        $em->flush();
-        return $this->redirectToRoute('actor_index', [], Response::HTTP_PERMANENTLY_REDIRECT);
+        if ($this->isCsrfTokenValid('delete'.$actor->getId(), $token)) {
+            $actorRepository->remove($actor, true);
+            $this->addFlash('red', 'Un acteur a été supprimé !');
+        }
+        return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
     }
 }
