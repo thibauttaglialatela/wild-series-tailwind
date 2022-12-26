@@ -47,7 +47,7 @@ class ActorController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}', 'edit')]
+    #[Route('/edit/{id}', name: 'edit')]
     public function edit(Request $request, Actor $actor, ActorRepository $actorRepository): Response
     {
         $form = $this->createForm(ActorType::class, $actor);
@@ -61,6 +61,20 @@ class ActorController extends AbstractController
             'form' => $form,
         ]);
     }
+
 //    TODO: créer les méthodes delete
 
+    #[Route('/{id}', name: 'delete')]
+    public function delete(ManagerRegistry $doctrine, int $id): Response
+    {
+        $em = $doctrine->getManager();
+        $actor = $em->getRepository(Actor::class)->find($id);
+
+        if (!$actor) {
+            throw $this->createNotFoundException('Aucun acteur pour cet ' . $id);
+        }
+        $em->remove($actor);
+        $em->flush();
+        return $this->redirectToRoute('actor_index', [], Response::HTTP_PERMANENTLY_REDIRECT);
+    }
 }

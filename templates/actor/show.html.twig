@@ -6,7 +6,7 @@
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">{{ actor.firstname }} {{ actor.lastname }}</h1>
     <div class="lg:flex lg:flex-row lg:justify-around lg:gap-x-8">
         {% if actor.poster is null %}
-            <img src="{{ asset('build/images/actor-image.jpg') }}" class="max-w-full h-auto lg:rounded-full"
+            <img src="{{ asset('build/images/actor-image.jpg') }}" class="max-w-full h-auto lg:rounded-full shadow-lg shadow-red"
                  alt="{{ actor.firstname }} {{ actor.lastname }}">
             {% else %}
                 <img src="{{ actor.poster }}" alt="{{ actor.firstname }} {{ actor.lastname }}" class="max-w-full h-auto lg:rounded-full">
@@ -36,10 +36,14 @@
     </div>
 
 
-    <div class="flex flex-col items-center my-5">
+    <div class="flex flex-col items-center gap-y-6 my-5 lg:flex-row lg:justify-around">
         {{ component('_button', {
             buttonUrl: path('actor_edit', {id:actor.id}),
             buttonText: 'éditer',
+        }) }}
+        {{ component('_button', {
+            buttonUrl: "#",
+            buttonText: 'supprimer'
         }) }}
         {{ component('_button', {
             buttonUrl: path('actor_index'),
