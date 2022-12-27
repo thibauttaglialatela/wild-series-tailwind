@@ -52,7 +52,7 @@ class EpisodeController extends AbstractController
             'program' => $program,
         ]);
     }
-//TODO: terminer le service ProgramDuration
+
     #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Episode $episode): Response
     {

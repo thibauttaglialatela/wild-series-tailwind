@@ -1,31 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Season{% endblock %}
+{% block title %}{{ parent() }} - Season{% endblock %}
 
 {% block body %}
-    <h1>Season</h1>
-{#TODO: mettre en forme la table#}
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ season.id }}</td>
-            </tr>
-            <tr>
-                <th>Number</th>
-                <td>{{ season.number }}</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>{{ season.year }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ season.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1 class="text-center text-shadow-lg shadow-red uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8 md:mx-12">Season</h1>
 
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full table-auto">
+                    <tbody>
+                    <tr class="bg-gray-100 border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Id</th>
+                        <td>{{ season.id }}</td>
+                    </tr>
+                    <tr class="bg-gray-100 border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Numéro</th>
+                        <td>{{ season.number }}</td>
+                    </tr>
+                    <tr class="bg-gray-100 border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Année de création</th>
+                        <td>{{ season.year }}</td>
+                    </tr>
+                    <tr class="bg-gray-100 border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Résumé</th>
+                        <td>{{ season.description }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="flex flex-col items-center justify-center mb-3 lg:flex-row">
     {{ component('_button', {
         buttonUrl: path('program_season_show', {'slug': program.slug, 'seasonId': season.id}),
         buttonText: 'Retour'
@@ -36,4 +44,5 @@
 }) }}
 
     {{ include('season/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
