@@ -8,6 +8,7 @@ use App\Entity\Season;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
+use App\Service\ProgramDuration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,12 +50,13 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'show', methods: ['GET'])]
-    public function show(Program $program, SeasonRepository $seasonRepository): Response
+    public function show(Program $program, SeasonRepository $seasonRepository, ProgramDuration $duration): Response
     {
         $seasons = $seasonRepository->findBy(['program' => $program]);
         return $this->render('program/show.html.twig', [
             'program' => $program,
             'seasons' => $seasons,
+            'program_duration' => $duration->calculate($program),
         ]);
     }
 
@@ -71,9 +73,9 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/season/{seasonId}/episode/{episodeId}', name: 'episode_show', requirements: ['seasonId' => '\d+', 'episodeId' => '\d+'])]
+    #[Route('/{slug}/season/{seasonId}/episode/{episode_slug}', name: 'episode_show', requirements: ['seasonId' => '\d+', 'episodeId' => '\d+'])]
     #[Entity('season', options: ['id' => 'seasonId'])]
-    #[Entity('episode', options: ['id' => 'episodeId'])]
+    #[ParamConverter('episode', class: 'App\Entity\Episode', options: ['mapping' => ['episode_slug' => 'slug']])]
     public function showEpisode(Program $program, Season $season, Episode $episode): Response
     {
         return $this->render('program/episode_show.html.twig', [

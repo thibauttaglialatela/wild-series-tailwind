@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/episode', name: 'episode_')]
 class EpisodeController extends AbstractController
@@ -25,10 +26,10 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/season/{season_id}/program/{program_id}/new', name: 'new', methods: ['GET', 'POST'])]
+    #[Route('/season/{season_id}/program/{program_slug}/new', name: 'new', methods: ['GET', 'POST'])]
     #[ParamConverter('season', class: 'App\Entity\Season',options: ['mapping' => ['season_id' => 'id']])]
-    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_id' => 'id']])]
-    public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program): Response
+    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
+    public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program, SluggerInterface $slugger): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -36,6 +37,8 @@ class EpisodeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episode->setSeason($season);
+            $slug = $slugger->slug($episode->getTitle());
+            $episode->setSlug($slug);
             $episodeRepository->save($episode, true);
             $this->addFlash('green', "Un épisode a bien été ajouté");
 
@@ -49,8 +52,8 @@ class EpisodeController extends AbstractController
             'program' => $program,
         ]);
     }
-
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+//TODO: terminer le service ProgramDuration
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Episode $episode): Response
     {
         return $this->render('episode/show.html.twig', [
@@ -58,8 +61,8 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/program/{program_id}/season/{season_id}/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_id' => 'id']])]
+    #[Route('/program/{program_slug}/season/{season_id}/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
     public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
@@ -81,8 +84,8 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/program/{programId}/season/{seasonId}', name: 'delete', methods: ['POST', 'DELETE'])]
-    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['programId' => 'id']])]
+    #[Route('/{slug}/program/{program_slug}/season/{seasonId}', name: 'delete', methods: ['POST', 'DELETE'])]
+    #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['seasonId' => 'id']])]
     public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {

@@ -24,8 +24,8 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/program/{programId}/new', name: 'new', methods: ['GET', 'POST'])]
-    #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ['programId' => 'id']])]
+    #[Route('/program/{program_slug}/new', name: 'new', methods: ['GET', 'POST'])]
+    #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ['program_slug' => 'slug']])]
     public function new(Request $request, SeasonRepository $seasonRepository, Program $program): Response
     {
         $season = new Season();
@@ -46,8 +46,8 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/program/{programId}', name: 'show', methods: ['GET'])]
-    #[ParamConverter('program', class: 'App\Entity\Program',options: ['mapping' => ['programId' => 'id']])]
+    #[Route('/{id}/program/{program_slug}', name: 'show', methods: ['GET'])]
+    #[ParamConverter('program', class: 'App\Entity\Program',options: ['mapping' => ['program_slug' => 'slug']])]
     public function show(Season $season, Program $program): Response
     {
 
@@ -57,8 +57,8 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/program/{program_id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    #[ParamConverter('program', options: ['mapping' => ['program_id' => 'id']])]
+    #[Route('/{id}/program/{program_slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[ParamConverter('program', options: ['mapping' => ['program_slug' => 'slug']])]
     public function edit(Request $request, Season $season, SeasonRepository $seasonRepository, Program $program): Response
     {
         $form = $this->createForm(SeasonType::class, $season);

@@ -13,7 +13,7 @@
         </section>
         <div class="flex flex-col justify-around md:flex-row md:w-screen md:justify-evenly">
                 {{ component('_button', {
-                    buttonUrl: path('episode_edit', {'id': episode.id, 'program_id': program.id, 'season_id': season.id}),
+                    buttonUrl: path('episode_edit', {'program_slug': program.slug, 'season_id': season.id, 'slug': episode.slug }),
                     buttonText: 'éditer'
                 }) }}
             {% include 'episode/_delete_form.html.twig' %}

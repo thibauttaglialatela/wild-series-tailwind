@@ -9,7 +9,7 @@
         {{ include('episode/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
         <div class="mt-5">
             {{ component('_button', {
-                buttonUrl: path('program_episode_show', {'slug': program.slug, "seasonId": season.id, 'episodeId': episode.id}),
+                buttonUrl: path('program_episode_show', {'slug': program.slug, "seasonId": season.id, 'episode_slug': episode.slug}),
                 buttonText: 'Retour',
             }) }}
         </div>

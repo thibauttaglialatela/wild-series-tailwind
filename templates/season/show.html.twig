@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Season</h1>
-
+{#TODO: mettre en forme la table#}
     <table class="table">
         <tbody>
             <tr>
@@ -27,11 +27,11 @@
     </table>
 
     {{ component('_button', {
-        buttonUrl: path('program_season_show', {'programId': program.id, 'seasonId': season.id}),
+        buttonUrl: path('program_season_show', {'slug': program.slug, 'seasonId': season.id}),
         buttonText: 'Retour'
     }) }}
 {{ component('_button', {
-    buttonUrl: path('season_edit', {'id': season.id, 'program_id': program.id}),
+    buttonUrl: path('season_edit', {'id': season.id, 'program_slug': program.slug}),
     buttonText: 'Editer la saison'
 }) }}
 
