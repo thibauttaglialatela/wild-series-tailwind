@@ -46,6 +46,7 @@ class ActorType extends AbstractType
                 'choice_label' => 'title',
                 'multiple' => true,
                 'expanded' => true,
+                'by_reference' => false,
                 'label' => 'Les séries dans lesquelles il(elle) joue',
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']

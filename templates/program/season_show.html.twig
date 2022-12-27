@@ -23,27 +23,27 @@
                     {% for episode in episodes|sort((a,b) => a.number <=> b.number) %}
                         <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
                             <a
-                                    href="{{ path('program_episode_show', {programId: program.id, seasonId: season.id, episodeId: episode.id}) }}">Episode {{ episode.number }} {{ episode.title }}</a></li>
+                                    href="{{ path('program_episode_show', {slug: program.slug, seasonId: season.id, episode_slug: episode.slug}) }}">Episode {{ episode.number }} {{ episode.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="flex flex-col md:flex-row md:w-screen md:justify-evenly">
             {{ component('_button', {
-                buttonUrl: path('season_show', {'id': season.id, 'programId': program.id}),
+                buttonUrl: path('season_show', {'id': season.id, 'program_slug': program.slug}),
                 buttonText: "Montrer"
             }) }}
             {{ component('_button', {
-                buttonUrl: path('season_edit', {'id': season.id, 'program_id': program.id}),
+                buttonUrl: path('season_edit', {'id': season.id, 'program_slug': program.slug}),
                 buttonText: "Editer"
             }) }}
             {{ component('_button', {
-                buttonUrl: path('episode_new', {'season_id': season.id, 'program_id': program.id}),
+                buttonUrl: path('episode_new', {'season_id': season.id, 'program_slug': program.slug}),
                 buttonText: "Ajouter un épisode"
             }) }}
         </div>
         {{ component('_button', {
-            buttonUrl: path('program_show', {'id': program.id}),
+            buttonUrl: path('program_show', {'slug': program.slug}),
             buttonText: "Retour"
         }) }}
     </div>

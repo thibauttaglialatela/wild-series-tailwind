@@ -9,17 +9,18 @@
         <section>
             <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Résumé de l'épisode</h3>
             <p class="font-sans text-left mx-4 lg:mx-20 text-base md:text-xl xl:text-2xl">{{ episode.synopsis }}</p>
+            <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">Durée : {{ episode.duration }} minutes</h4>
         </section>
         <div class="flex flex-col justify-around md:flex-row md:w-screen md:justify-evenly">
                 {{ component('_button', {
-                    buttonUrl: path('episode_edit', {'id': episode.id, 'program_id': program.id, 'season_id': season.id}),
+                    buttonUrl: path('episode_edit', {'program_slug': program.slug, 'season_id': season.id, 'slug': episode.slug }),
                     buttonText: 'éditer'
                 }) }}
             {% include 'episode/_delete_form.html.twig' %}
         </div>
         <div class="mb-10">
             {{ component('_button', {
-                buttonUrl: path('program_season_show', {programId: program.id, seasonId: season.id}),
+                buttonUrl: path('program_season_show', {slug: program.slug, seasonId: season.id}),
                 buttonText: "Retour à la saison"
             }) }}
         </div>

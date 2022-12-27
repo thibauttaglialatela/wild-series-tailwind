@@ -16,7 +16,7 @@
                         <p class="my-4 text-base" id="whoobe-950fw">{{ program.synopsis }}</p>
                         <button>
                             {{ component('_button', {
-                                buttonUrl: path('program_show', {'id': program.id}),
+                                buttonUrl: path('program_show', {'slug': program.slug}),
                                 buttonText: "En savoir plus"
                             })
                             }}

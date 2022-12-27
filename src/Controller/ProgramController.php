@@ -8,6 +8,7 @@ use App\Entity\Season;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
+use App\Service\ProgramDuration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -29,13 +31,15 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, ProgramRepository $programRepository): Response
+    public function new(Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($program->getTitle());
+            $program->setSlug($slug);
             $programRepository->save($program, true);
             $this->addFlash('green', 'Une série a bien été ajoutée.');
             return $this->redirectToRoute('program_index', [], Response::HTTP_CREATED);
@@ -45,18 +49,19 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(Program $program, SeasonRepository $seasonRepository): Response
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
+    public function show(Program $program, SeasonRepository $seasonRepository, ProgramDuration $duration): Response
     {
         $seasons = $seasonRepository->findBy(['program' => $program]);
         return $this->render('program/show.html.twig', [
             'program' => $program,
             'seasons' => $seasons,
+            'program_duration' => $duration->calculate($program),
         ]);
     }
 
-    #[Route('/{programId}/season/{seasonId}', name: 'season_show', requirements: ['programId' => '\d+', 'seasonId' => '\d+'])]
-    #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ["programId" => "id"]])]
+    #[Route('/{slug}/season/{seasonId}', name: 'season_show', requirements: [ 'seasonId' => '\d+'])]
+    #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ["slug" => "slug"]])]
     #[ParamConverter("season", class: "App\Entity\Season", options: ["mapping" => ["seasonId" => "id"]])]
     public function showSeason(Program $program, Season $season): Response
     {
@@ -68,10 +73,9 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{programId}/season/{seasonId}/episode/{episodeId}', name: 'episode_show', requirements: ['programId' => '\d+', 'seasonId' => '\d+', 'episodeId' => '\d+'])]
-    #[Entity('program', options: ['id' => 'programId'])]
+    #[Route('/{slug}/season/{seasonId}/episode/{episode_slug}', name: 'episode_show', requirements: ['seasonId' => '\d+', 'episodeId' => '\d+'])]
     #[Entity('season', options: ['id' => 'seasonId'])]
-    #[Entity('episode', options: ['id' => 'episodeId'])]
+    #[ParamConverter('episode', class: 'App\Entity\Episode', options: ['mapping' => ['episode_slug' => 'slug']])]
     public function showEpisode(Program $program, Season $season, Episode $episode): Response
     {
         return $this->render('program/episode_show.html.twig', [
@@ -82,17 +86,19 @@ class ProgramController extends AbstractController
 
     }
 
-    #[Route('/{id}/edit', name: "edit",requirements: ['id' => '\d+'])]
-    public function edit(Request $request, Program $program, ProgramRepository $programRepository): Response
+    #[Route('/{slug}/edit', name: "edit")]
+    public function edit(Request $request, Program $program, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ProgramType::class, $program);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($program->getTitle());
+            $program->setSlug($slug);
             $programRepository->save($program, true);
             $this->addFlash('green', 'La série a bien été éditée.');
 
-            return $this->redirectToRoute('program_show', ['id'=>$program->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_show', ['slug'=>$program->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('program/edit.html.twig', [

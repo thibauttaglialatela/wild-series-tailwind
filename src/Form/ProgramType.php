@@ -56,6 +56,7 @@ class ProgramType extends AbstractType
                 'class' => Actor::class,
                 'multiple' => true,
                 'expanded' => true,
+                'by_reference' => false,
                 'label' => 'Les acteurs',
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
