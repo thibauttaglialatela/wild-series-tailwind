@@ -11,6 +11,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -29,7 +32,7 @@ class EpisodeController extends AbstractController
     #[Route('/season/{season_id}/program/{program_slug}/new', name: 'new', methods: ['GET', 'POST'])]
     #[ParamConverter('season', class: 'App\Entity\Season',options: ['mapping' => ['season_id' => 'id']])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
-    public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program, SluggerInterface $slugger): Response
+    public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program, SluggerInterface $slugger, MailerInterface $mailer): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -41,8 +44,21 @@ class EpisodeController extends AbstractController
             $episode->setSlug($slug);
             $episodeRepository->save($episode, true);
             $this->addFlash('green', "Un épisode a bien été ajouté");
-
-            return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'programId' => $program->getId()], Response::HTTP_SEE_OTHER);
+$email = (new Email())
+    ->to('user@example.com')
+    ->subject('Nouvel épisode ajouté')
+    ->html($this->renderView('episode/EpisodeEmail.html.twig', [
+        'episode' => $episode,
+        'program' => $program,
+        'season' => $season,
+    ]))
+    ;
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $exception) {
+                //error message
+            }
+            return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('episode/new.html.twig', [

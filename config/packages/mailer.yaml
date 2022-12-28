@@ -2,3 +2,7 @@ framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
         message_bus: false
+        envelope:
+            sender: '%env(resolve:MAILER_FROM_ADDRESS)%'
+        headers:
+            From: '%env(resolve:MAILER_FROM_ADDRESS)%'

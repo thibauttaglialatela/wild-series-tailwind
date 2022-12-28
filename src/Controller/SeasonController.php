@@ -36,7 +36,7 @@ class SeasonController extends AbstractController
             $seasonRepository->save($season, true);
             $this->addFlash('green', 'Une saison a bien été enregistrée.');
 
-            return $this->redirectToRoute('program_show', ['id' => $program->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_show', ['slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('season/new.html.twig', [
@@ -68,7 +68,7 @@ class SeasonController extends AbstractController
             $seasonRepository->save($season, true);
             $this->addFlash('green', 'La saison a été éditée.');
 
-            return $this->redirectToRoute('program_season_show', ['programId'=> $program->getId(), 'seasonId'=>$season->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_season_show', ['slug'=> $program->getSlug(), 'seasonId'=>$season->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('season/edit.html.twig', [

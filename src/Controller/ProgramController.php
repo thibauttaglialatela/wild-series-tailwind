@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,13 +46,19 @@ class ProgramController extends AbstractController
             $programRepository->save($program, true);
             $this->addFlash('green', 'Une série a bien été ajoutée.');
             $email = (new Email())
-                ->from('admin@wild-series.com')
                 ->to('user@hotmail.fr')
                 ->subject('new program added')
                 ->text('A new program has been added to Wild series')
-                ->html('<p>Une nouvelle série vient d\'être publiée sur Wild Séries !</p>');
+                ->html($this->renderView('program/ProgramEmail.html.twig', [
+                    'program' => $program,
+                ]));
 
-            $mailer->send($email);
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $e) {
+                // some error prevented the email sending; display an
+                // error message or try to resend the message
+            }
             return $this->redirectToRoute('program_index', [], Response::HTTP_CREATED);
         }
         return $this->renderForm('program/new.html.twig', [
