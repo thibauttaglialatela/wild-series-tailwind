@@ -14,6 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -31,7 +34,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
+    public function new(MailerInterface $mailer,Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -42,6 +45,20 @@ class ProgramController extends AbstractController
             $program->setSlug($slug);
             $programRepository->save($program, true);
             $this->addFlash('green', 'Une série a bien été ajoutée.');
+            $email = (new Email())
+                ->to('user@hotmail.fr')
+                ->subject('new program added')
+                ->text('A new program has been added to Wild series')
+                ->html($this->renderView('program/ProgramEmail.html.twig', [
+                    'program' => $program,
+                ]));
+
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $e) {
+                // some error prevented the email sending; display an
+                // error message or try to resend the message
+            }
             return $this->redirectToRoute('program_index', [], Response::HTTP_CREATED);
         }
         return $this->renderForm('program/new.html.twig', [

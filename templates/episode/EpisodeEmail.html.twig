@@ -1,0 +1,8 @@
+{% extends 'layoutEmail.html.twig' %}
+{% block title %}{{ parent() }} - ajout de l'épisode {{ episode.title }}{% endblock %}
+{% block body %}
+    <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">ajout de l'épisode {{ episode.title }}</h1>
+    <p>Bonjour, Un nouvel épisode de la saison {{ season.number }} de la série {{ program.title }} vient d'être ajouté à Wild Series</p>
+    <hr>
+    <p>Son résumé : {{episode.synopsis }}</p>
+{% endblock %}
