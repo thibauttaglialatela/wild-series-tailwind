@@ -6,8 +6,9 @@
         {% for program in program_by_category %}
             <div class="flex items-center flex-row justify-center max-w-sm md:max-w-md mx-4 mb-2 rounded-lg shadow-lg">
                 <div class="justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
-                    {% if program.poster is not empty %}
-                        <img src="{{ program.poster }}" alt="{{ program.title }}" class="w-full h-auto object-contain rounded-t-lg">
+                    {% if program.poster %}
+                        <img src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}" class="w-full h-auto object-contain rounded-t-lg">
+
                         {% else %}
                             <img src="https://picsum.photos/id/184/300/200" alt="ordinateur" class="w-full h-auto object-contain rounded-t-lg">
                     {% endif %}
