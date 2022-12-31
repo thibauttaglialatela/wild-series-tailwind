@@ -32,7 +32,6 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                 $slug = $this->slugger->slug($program->getTitle());
                 $program->setSlug($slug);
                 $program->setYear($faker->year());
-                $program->setPoster('https://picsum.photos/300/200');
                 $program->setCountry($faker->country());
                 $program->setSynopsis($faker->realTextBetween());
                 $program->setCategory($this->getReference('category_' . $i));
