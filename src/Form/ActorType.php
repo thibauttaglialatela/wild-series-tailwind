@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ActorType extends AbstractType
 {
@@ -35,11 +36,9 @@ class ActorType extends AbstractType
                 'widget' => 'single_text',
                 'input' => 'datetime',
             ])
-            ->add('poster', TextType::class, [
+            ->add('posterFile', VichImageType::class, [
                 'label' => 'Sa photo',
                 'required' => false,
-                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
-                'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('programs', EntityType::class, [
                 'class' => Program::class,

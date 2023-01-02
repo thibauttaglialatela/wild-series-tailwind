@@ -9,7 +9,7 @@
             <img src="{{ asset('build/images/actor-image.jpg') }}" class="max-w-full h-auto lg:rounded-full shadow-lg shadow-red"
                  alt="{{ actor.firstname }} {{ actor.lastname }}">
             {% else %}
-                <img src="{{ actor.poster }}" alt="{{ actor.firstname }} {{ actor.lastname }}" class="max-w-full h-auto lg:rounded-full">
+                <img src="{{ vich_uploader_asset(actor) }}" alt="{{ actor.firstname }} {{ actor.lastname }}" class="max-w-full h-auto lg:rounded-full lg:max-w-lg">
         {% endif %}
         <div class="flex flex-col justify-center items-center">
             <h4 class="font-medium leading-tight text-lg lg:text-3xl mt-5 mb-2 text-white text-center">date de naissance

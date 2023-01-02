@@ -3,13 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\ActorRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
+#[Vich\Uploadable]
 class Actor
 {
     #[ORM\Id]
@@ -33,8 +38,8 @@ class Actor
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank]
-    #[Assert\Type(\DateTimeInterface::class)]
-    private ?\DateTimeInterface $birth_date = null;
+    #[Assert\Type(DateTimeInterface::class)]
+    private ?DateTimeInterface $birth_date = null;
 
     /** @var Collection<int, Program> */
     #[ORM\ManyToMany(targetEntity: Program::class, inversedBy: 'actors')]
@@ -43,8 +48,22 @@ class Actor
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
+#[UploadableField(mapping: 'poster_file',fileNameProperty: 'poster')]
+#[Assert\File(
+    maxSize: '2M',
+    maxSizeMessage: 'Le fichier ne peut pas être plus grand que {{ limit }}',
+    mimeTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
+    mimeTypesMessage: 'Le type Mime de ce fichier n\'est pas valide {{ type }} ! Les types autorisés sont {{ types }}.'
+)]
+private ?File $posterFile = null;
+
+
+
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -85,12 +104,12 @@ class Actor
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBirthDate(): ?DateTimeInterface
     {
         return $this->birth_date;
     }
 
-    public function setBirthDate(\DateTimeInterface $birth_date): self
+    public function setBirthDate(DateTimeInterface $birth_date): self
     {
         $this->birth_date = $birth_date;
 
@@ -103,6 +122,20 @@ class Actor
     public function getPrograms(): Collection
     {
         return $this->programs;
+    }
+
+    public function setPosterFile(File $image = null):Actor
+    {
+        $this->posterFile = $image;
+        if (null !== $image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
     }
 
     public function addProgram(Program $program): self
@@ -141,6 +174,18 @@ class Actor
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

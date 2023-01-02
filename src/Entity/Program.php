@@ -44,6 +44,12 @@ class Program
     private ?string $poster = null;
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    #[Assert\File(
+        maxSize: '2M',
+        maxSizeMessage: 'Le fichier ne peut pas être plus grand que {{ limit }}',
+        mimeTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Le type Mime de ce fichier n\'est pas valide {{ type }} ! Les types autorisés sont {{ types }}.'
+    )]
     private ?File $posterFile = null;
 
 
