@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProgramType extends AbstractType
 {
@@ -29,11 +30,12 @@ class ProgramType extends AbstractType
                 'sanitize_html' => true,
 
             ])
-            ->add('poster', TextType::class, [
-                'label' => 'Illustration',
-                'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
-                'attr' => ['class' => 'text-black md:text-xl w-full'],
+            ->add('posterFile', VichImageType::class, [
                 'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'supprimer le fichier',
+                'asset_helper' => true,
+                'label' => 'Image de la série'
             ])
             ->add('country', TextType::class, [
                 'label' => 'Pays',

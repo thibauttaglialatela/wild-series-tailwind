@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Form\CommentType;
 use App\Form\ProgramType;
+use App\Repository\CommentRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
 use App\Service\ProgramDuration;
@@ -34,7 +37,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(MailerInterface $mailer,Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
+    public function new(MailerInterface $mailer, Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -77,7 +80,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/season/{seasonId}', name: 'season_show', requirements: [ 'seasonId' => '\d+'])]
+    #[Route('/{slug}/season/{seasonId}', name: 'season_show', requirements: ['seasonId' => '\d+'])]
     #[ParamConverter("program", class: "App\Entity\Program", options: ['mapping' => ["slug" => "slug"]])]
     #[ParamConverter("season", class: "App\Entity\Season", options: ["mapping" => ["seasonId" => "id"]])]
     public function showSeason(Program $program, Season $season): Response
@@ -93,12 +96,27 @@ class ProgramController extends AbstractController
     #[Route('/{slug}/season/{seasonId}/episode/{episode_slug}', name: 'episode_show', requirements: ['seasonId' => '\d+', 'episodeId' => '\d+'])]
     #[Entity('season', options: ['id' => 'seasonId'])]
     #[ParamConverter('episode', class: 'App\Entity\Episode', options: ['mapping' => ['episode_slug' => 'slug']])]
-    public function showEpisode(Program $program, Season $season, Episode $episode): Response
+    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, CommentRepository $commentRepository): Response
     {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setEpisode($episode);
+            $comment->setAuthor($this->getUser());
+            $commentRepository->save($comment, true);
+            return $this->redirectToRoute('program_episode_show', ['slug' => $program->getSlug(), 'seasonId' => $season->getId(), 'episode_slug' => $episode->getSlug()], Response::HTTP_SEE_OTHER);
+        }
+        $comments = $commentRepository->findBy(['episode' => $episode->getId()], ['createdAt' => 'ASC']);
+
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
             'episode' => $episode,
+            'comments' => $comments,
+            'form' => $form->createView(),
         ]);
 
     }
@@ -115,7 +133,7 @@ class ProgramController extends AbstractController
             $programRepository->save($program, true);
             $this->addFlash('green', 'La série a bien été éditée.');
 
-            return $this->redirectToRoute('program_show', ['slug'=>$program->getSlug()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('program_show', ['slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('program/edit.html.twig', [
@@ -131,7 +149,7 @@ class ProgramController extends AbstractController
         if (!is_string($token)) {
             throw new InvalidCsrfTokenException('error on the Csrf token');
         }
-        if ($this->isCsrfTokenValid('delete'.$program->getId(), $token)) {
+        if ($this->isCsrfTokenValid('delete' . $program->getId(), $token)) {
             $programRepository->remove($program, true);
             $this->addFlash('red', 'La série a été supprimé !');
         }

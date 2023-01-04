@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Form\CommentType;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +33,7 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/season/{season_id}/program/{program_slug}/new', name: 'new', methods: ['GET', 'POST'])]
-    #[ParamConverter('season', class: 'App\Entity\Season',options: ['mapping' => ['season_id' => 'id']])]
+    #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program, SluggerInterface $slugger, MailerInterface $mailer): Response
     {
@@ -44,15 +47,14 @@ class EpisodeController extends AbstractController
             $episode->setSlug($slug);
             $episodeRepository->save($episode, true);
             $this->addFlash('green', "Un épisode a bien été ajouté");
-$email = (new Email())
-    ->to('user@example.com')
-    ->subject('Nouvel épisode ajouté')
-    ->html($this->renderView('episode/EpisodeEmail.html.twig', [
-        'episode' => $episode,
-        'program' => $program,
-        'season' => $season,
-    ]))
-    ;
+            $email = (new Email())
+                ->to('user@example.com')
+                ->subject('Nouvel épisode ajouté')
+                ->html($this->renderView('episode/EpisodeEmail.html.twig', [
+                    'episode' => $episode,
+                    'program' => $program,
+                    'season' => $season,
+                ]));
             try {
                 $mailer->send($email);
             } catch (TransportExceptionInterface $exception) {
@@ -106,14 +108,15 @@ $email = (new Email())
     public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
         $token = $request->get('_token');
-        if(!is_string($token)){
+        if (!is_string($token)) {
             throw new InvalidCsrfTokenException('erreur');
         }
-        if ($this->isCsrfTokenValid('delete'.$episode->getId(), $token)) {
+        if ($this->isCsrfTokenValid('delete' . $episode->getId(), $token)) {
             $episodeRepository->remove($episode, true);
             $this->addFlash('red', "Attention un épisode a été supprimé !");
         }
 
         return $this->redirectToRoute('program_season_show', ['programId' => $program->getId(), 'seasonId' => $season->getId()], Response::HTTP_SEE_OTHER);
     }
+
 }

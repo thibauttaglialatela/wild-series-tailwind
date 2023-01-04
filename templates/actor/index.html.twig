@@ -16,7 +16,7 @@
             <div class="flex items-center flex-row justify-center max-w-sm md:max-w-md mx-4 mb-2 rounded-lg shadow-lg">
                 <div class="justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
                     {% if actor.poster is not empty %}
-                        <img src="{{ actor.poster }}" alt="{{ actor.firstname }} {{ actor.lastname }}"
+                        <img src="{{ vich_uploader_asset(actor) }}" alt="{{ actor.firstname }} {{ actor.lastname }}"
                              class="w-full h-auto object-contain rounded-t-lg">
                     {% else %}
                         <img src="{{ asset('build/images/actor-image.jpg') }}"
