@@ -17,7 +17,9 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-
+            remember_me:
+                secret:   '%kernel.secret%' # required
+                lifetime: 1800 # 30 minutes in second
             form_login:
                 login_path: app_login
                 check_path: app_login
@@ -33,6 +35,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
+
 
 when@test:
     security:
