@@ -15,9 +15,6 @@ class ProgramDuration
                 $totalWatchingTime += $program->getSeasons()[$i]->getEpisodes()[$j]->getDuration();
             }
         }
-        if (!isset($days)) {
-            return "Aucune saison pour le moment";
-        }
         return $this->convertMinToDays($totalWatchingTime);
     }
 
