@@ -73,10 +73,15 @@ class ProgramController extends AbstractController
     public function show(Program $program, SeasonRepository $seasonRepository, ProgramDuration $duration): Response
     {
         $seasons = $seasonRepository->findBy(['program' => $program]);
+        if (count($seasons) > 0) {
+            $programDuration = $duration->calculate($program);
+        } else {
+            $programDuration = 0;
+        }
         return $this->render('program/show.html.twig', [
             'program' => $program,
             'seasons' => $seasons,
-            'program_duration' => $duration->calculate($program),
+            'program_duration' => $programDuration,
         ]);
     }
 
