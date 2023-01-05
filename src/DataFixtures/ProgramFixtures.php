@@ -34,6 +34,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                 $program->setYear($faker->year());
                 $program->setCountry($faker->country());
                 $program->setSynopsis($faker->realTextBetween());
+                $program->setOwner($this->getReference('contributor'));
                 $program->setCategory($this->getReference('category_' . $i));
                 $manager->persist($program);
                 $this->addReference('program_' . $programNb, $program);
@@ -47,6 +48,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategoryFixtures::class,
+            UserFixtures::class,
         ];
     }
 }
