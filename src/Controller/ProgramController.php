@@ -14,6 +14,7 @@ use App\Repository\SeasonRepository;
 use App\Service\ProgramDuration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,6 +100,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTRIBUTOR')", message: "impossible de poster un commentaire si vous n'êtes pas connecter",statusCode: Response::HTTP_FORBIDDEN)]
     #[Route('/{slug}/season/{seasonId}/episode/{episode_slug}', name: 'episode_show', requirements: ['seasonId' => '\d+', 'episodeId' => '\d+'])]
     #[Entity('season', options: ['id' => 'seasonId'])]
     #[ParamConverter('episode', class: 'App\Entity\Episode', options: ['mapping' => ['episode_slug' => 'slug']])]
