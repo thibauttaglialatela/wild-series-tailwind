@@ -47,13 +47,16 @@
             </ol>
             {% endfor %}
         </section>
-        <div class="flex flex-col justify-around md:flex-row md:w-screen md:justify-evenly">
+{% if is_granted('ROLE_CONTRIBUTOR') %}
+            <div class="flex flex-col justify-around md:flex-row md:w-screen md:justify-evenly">
                 {{ component('_button', {
                     buttonUrl: path('episode_edit', {'program_slug': program.slug, 'season_id': season.id, 'slug': episode.slug }),
                     buttonText: 'éditer'
                 }) }}
-            {% include 'episode/_delete_form.html.twig' %}
-        </div>
+                {% include 'episode/_delete_form.html.twig' %}
+            </div>
+{% endif %}
+
         <div class="mb-10">
             {{ component('_button', {
                 buttonUrl: path('program_season_show', {slug: program.slug, seasonId: season.id}),
