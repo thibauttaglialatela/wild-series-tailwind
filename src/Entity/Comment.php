@@ -37,6 +37,12 @@ class Comment
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
 
+    public function __toString(): string
+    {
+        return $this->getAuthor()->getEmail();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

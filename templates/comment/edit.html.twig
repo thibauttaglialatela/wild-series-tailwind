@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Edition d'un commentaire{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-shadow-lg shadow-red uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8 md:mx-12">Edition d'un commentaire</h1>
+    <div class="flex justify-center items-center h-44">
+        {{ include('comment/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
+
+
+
+<section class="flex justify-center items-center">
+    <div class="h-20 inline-flex flex-col md:flex-row shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+    {{ component('_button', {
+        buttonUrl: path('program_episode_show', {'slug': program.slug, 'seasonId': season.id, 'episode_slug': episode.slug}),
+        buttonText: 'Retour'
+    }) }}
+    {{ include('comment/_delete_form.html.twig') }}
+    </div>
+</section>
+
+{% endblock %}

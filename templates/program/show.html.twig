@@ -71,14 +71,18 @@
                 buttonUrl: path('category_show', {categoryName: program.category.name}),
                 buttonText: 'Retour'
             }) }}
-            {{ component('_button', {
-                buttonUrl: path('season_new', {program_slug: program.slug}),
-                buttonText: "ajout d'une saison"
-            }) }}
-            {{ component('_button', {
-                buttonUrl: path('program_edit', {slug: program.slug}),
-                buttonText: "éditer la série",
-            }) }}
+
+            {% if is_granted("ROLE_ADMIN") or app.user == program.owner %}
+                {{ component('_button', {
+                    buttonUrl: path('season_new', {program_slug: program.slug}),
+                    buttonText: "ajout d'une saison"
+                }) }}
+                {{ component('_button', {
+                    buttonUrl: path('program_edit', {slug: program.slug}),
+                    buttonText: "éditer la série",
+                }) }}
+            {% endif %}
+
         </div>
     </div>
 

@@ -130,9 +130,7 @@ class ProgramController extends AbstractController
     #[Route('/{slug}/edit', name: "edit")]
     public function edit(Request $request, Program $program, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
-        if ($this->getUser() !== $program->getOwner()) {
-            throw $this->createAccessDeniedException('seule le créateur peut éditer cette série');
-        }
+
         $form = $this->createForm(ProgramType::class, $program);
 
         $form->handleRequest($request);
