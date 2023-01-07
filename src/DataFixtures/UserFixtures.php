@@ -20,6 +20,7 @@ class UserFixtures extends Fixture
         $contributor = new User();
         $plainTextPassword = 'wildPassord';
         $contributor->setEmail('contributor@mail.com');
+        $contributor->setRoles(['ROLE_CONTRIBUTOR']);
         $contributor->setPassword($this->passwordHasher->hashPassword($contributor, $plainTextPassword));
         $manager->persist($contributor);
 
@@ -31,5 +32,6 @@ class UserFixtures extends Fixture
         $manager->persist($admin);
 
         $manager->flush();
+        $this->addReference('contributor', $contributor);
     }
 }

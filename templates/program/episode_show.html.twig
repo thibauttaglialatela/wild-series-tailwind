@@ -13,32 +13,51 @@
             {% if app.user %}
                 <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Ajout d'un commentaire</h3>
                 <div class="flex justify-center my-3 md:my-6">
-                    {{ include('comment/_form.html.twig') }}
+                    {{ include('comment/_modal_create_comment.html.twig') }}
                 </div>
             {% endif %}
             <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Liste des commentaires.</h3>
+            {% if comments is empty %}
+                <p class="font-sans text-center mx-4 lg:mx-20 text-base md:text-xl xl:text-2xl">Aucun commentaire pour cet épisode</p>
+            {% endif %}
             {% for comment in comments %}
-            <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-center md:gap-6">
+            <ol class="mt-5 border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-center md:gap-6">
                 <li>
-                    <div class="flex flex-start items-center pt-3">
+                    <div class="flex items-center pt-3">
                         <div class="bg-gray-300 w-2 h-2 rounded-full -ml-1 mr-3"></div>
-                        <p class="text-gray-500 text-sm">{{ comment.createdAt|format_datetime('full', 'none') }}</p>
+                        <p class="text-gray-500 text-lg">{{ comment.createdAt|format_datetime('full', 'none') }}</p>
+
                     </div>
                     <div class="mt-0.5 ml-4 mb-6">
-                        <h4 class="text-gray-800 font-semibold text-xl mb-1.5">Note : {{ comment.rate }}</h4>
-                        <p class="text-gray-500 mb-3">{{ comment.comment }}</p>
+                        <h6 class="font-medium leading-tight text-base mt-0 mb-2 text-white underline">Note : {{ comment.rate }}</h6>
+                        <p class="text-gray-500 mb-3">{{ comment.comment|raw }}</p>
+                        <p class="text-gray-500 text-base">Auteur : {{ comment.author }}</p>
                     </div>
+                    {% if is_granted("ROLE_ADMIN") or app.user == comment.author %}
+                        <div class="flex justify-center items-center mb-5">
+                            {{ component('_button', {
+                                buttonUrl: path('comment_edit', {'id': comment.id, 'program_slug': program.slug, 'season_id': season.id, 'episode_slug': episode.slug}),
+                                buttonText: 'éditer le commentaire'
+                            }) }}
+                        </div>
+                    {% endif %}
+
+
                 </li>
             </ol>
             {% endfor %}
         </section>
-        <div class="flex flex-col justify-around md:flex-row md:w-screen md:justify-evenly">
+
+{% if is_granted('ROLE_CONTRIBUTOR') %}
+            <div class="flex flex-col justify-around md:flex-row md:w-screen md:justify-evenly">
                 {{ component('_button', {
                     buttonUrl: path('episode_edit', {'program_slug': program.slug, 'season_id': season.id, 'slug': episode.slug }),
                     buttonText: 'éditer'
                 }) }}
-            {% include 'episode/_delete_form.html.twig' %}
-        </div>
+                {% include 'episode/_delete_form.html.twig' %}
+            </div>
+{% endif %}
+
         <div class="mb-10">
             {{ component('_button', {
                 buttonUrl: path('program_season_show', {slug: program.slug, seasonId: season.id}),

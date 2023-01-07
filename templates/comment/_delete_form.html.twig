@@ -1,7 +1,5 @@
-<form method="post"
-      action="{{ path('episode_delete', {'slug': episode.slug, 'program_slug': program.slug, 'seasonId': season.id}) }}"
-      onsubmit="return confirm('Êtes vous sure de vouloir supprimer cet épisode ?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ episode.id) }}">
+<form method="post" action="{{ path('comment_delete', {'id': comment.id, 'program_slug': program.slug, 'season_id': season.id, 'episode_slug': episode.slug}) }}" onsubmit="return confirm('Voulez vous supprimer ce commentaire ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
     <button class="btn text-center inline-block px-6 py-2.5 bg-red text-black font-medium text-md leading-tight uppercase rounded hover:bg-opacity-50 hover:text-black hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
         Supprimer
     </button>
