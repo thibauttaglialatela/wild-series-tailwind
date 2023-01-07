@@ -33,6 +33,7 @@ class CommentController extends AbstractController
     #[ParamConverter('episode', class: 'App\Entity\Episode', options: ['mapping' => ['episode_slug' => 'slug']])]
     public function edit(Request $request, Comment $comment, CommentRepository $commentRepository, Program $program, Season $season, Episode $episode): Response
     {
+        $this->denyAccessUnlessGranted('edit', $comment);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -50,7 +51,7 @@ class CommentController extends AbstractController
             'episode' => $episode,
         ]);
     }
-    #[IsGranted('ROLE_ADMIN', message: 'opération interdite',statusCode: Response::HTTP_FORBIDDEN)]
+//    #[IsGranted('ROLE_ADMIN', message: 'opération interdite',statusCode: Response::HTTP_FORBIDDEN)]
     #[Route('/{id}/program/{program_slug}/season/{season_id}/episode/{episode_slug}/delete', name: 'delete', methods: ['POST'])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
@@ -63,7 +64,7 @@ class CommentController extends AbstractController
                            Episode           $episode
     ): Response
     {
-
+        $this->denyAccessUnlessGranted('delete', $comment);
         if ($this->isCsrfTokenValid('delete' . $comment->getId(), $request->request->get('_token'))) {
             $commentRepository->remove($comment, true);
         }
