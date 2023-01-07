@@ -42,12 +42,15 @@ navbar navbar-expand-md navbar-red
                         buttonText: 'acteurs'
                     }) }}
                 </li>
-                <li class="nav-item px-2 my-5">
-                    {{ component('_button', {
-                        buttonUrl: path('program_index'),
-                        buttonText: 'séries'
-                    }) }}
-                </li>
+                {% if is_granted('ROLE_CONTRIBUTOR') %}
+                    <li class="nav-item px-2 my-5">
+                        {{ component('_button', {
+                            buttonUrl: path('program_index'),
+                            buttonText: 'séries'
+                        }) }}
+                    </li>
+                {% endif %}
+
                 <li class="nav-item pr-2">
                     <div class="flex justify-center">
                         <div>

@@ -28,6 +28,7 @@
                 <th>Catégorie</th>
                 <th>Pays</th>
                 <th>Année</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -38,13 +39,19 @@
                     <td>{{ program.category.name }}</td>
                     <td>{{ program.country }}</td>
                     <td>{{ program.year }}</td>
+                    <td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('program_edit', { 'slug': program.slug }) }}"
+                               class="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out">Editer</a>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
-    {#{% for program in programs %}
+    {# {% for program in programs %}
         <div class="flex items-center flex-row justify-center">
             <div class="w-full md:w-1/2 justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
                 <img src="{{ program.poster }}" alt="{{ program.title }}" class="w-full h-auto object-cover rounded-t-lg">
@@ -62,5 +69,5 @@
             </div>
         </div>
 
-    {% endfor %}#}
+    {% endfor %} #}
 {% endblock %}
