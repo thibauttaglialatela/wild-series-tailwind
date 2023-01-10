@@ -37,12 +37,15 @@
 
 
     <div class="flex flex-col items-center gap-y-6 my-5 lg:flex-row lg:justify-around">
-        {{ component('_button', {
-            buttonUrl: path('actor_edit', {slug:actor.slug}),
-            buttonText: 'éditer',
-        }) }}
-
-        {{ include('actor/_delete_form.html.twig') }}
+        {% if is_granted('ROLE_CONTRIBUTOR') %}
+            {{ component('_button', {
+                buttonUrl: path('actor_edit', {slug:actor.slug}),
+                buttonText: 'éditer',
+            }) }}
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('actor/_delete_form.html.twig') }}
+        {% endif %}
         {{ component('_button', {
             buttonUrl: path('actor_index'),
             buttonText: 'Retour',

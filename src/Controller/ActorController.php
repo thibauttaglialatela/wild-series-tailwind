@@ -54,6 +54,7 @@ class ActorController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'edit')]
+    #[IsGranted('ROLE_CONTRIBUTOR')]
     public function edit(Request $request, Actor $actor, ActorRepository $actorRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ActorType::class, $actor);
@@ -74,6 +75,7 @@ class ActorController extends AbstractController
     #[Route('/delete/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(Actor $actor, ActorRepository $actorRepository, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Seul un administrateur du site peut supprimer la fiche d\'un acteur');
         $token = $request->get('_token');
         if (!is_string($token)) {
             throw new InvalidCsrfTokenException('error on the Csrf token');
