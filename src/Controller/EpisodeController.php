@@ -35,6 +35,7 @@ class EpisodeController extends AbstractController
     #[Route('/season/{season_id}/program/{program_slug}/new', name: 'new', methods: ['GET', 'POST'])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
+    #[IsGranted('ROLE_ADMIN', null, 'Réservé à un administrateur', Response::HTTP_FORBIDDEN)]
     public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program, SluggerInterface $slugger, MailerInterface $mailer): Response
     {
         $episode = new Episode();
@@ -82,6 +83,7 @@ class EpisodeController extends AbstractController
     #[Route('/program/{program_slug}/season/{season_id}/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
+    #[IsGranted('ROLE_ADMIN', null, 'Accés refusé sauf aux personnes ayant un rang administrateur', Response::HTTP_FORBIDDEN)]
     public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -105,6 +107,7 @@ class EpisodeController extends AbstractController
     #[Route('/{slug}/program/{program_slug}/season/{seasonId}', name: 'delete', methods: ['POST', 'DELETE'])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['seasonId' => 'id']])]
+    #[IsGranted('ROLE_ADMIN', null, 'Accés refusé sauf aux personnes ayant un rang administrateur', Response::HTTP_FORBIDDEN)]
     public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
         $token = $request->get('_token');

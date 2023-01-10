@@ -6,6 +6,7 @@ use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\SeasonType;
 use App\Repository\SeasonRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +60,7 @@ class SeasonController extends AbstractController
 
     #[Route('/{id}/program/{program_slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     #[ParamConverter('program', options: ['mapping' => ['program_slug' => 'slug']])]
+    #[IsGranted('ROLE_ADMIN', null, 'Réservé à un administrateur', Response::HTTP_FORBIDDEN)]
     public function edit(Request $request, Season $season, SeasonRepository $seasonRepository, Program $program): Response
     {
         $form = $this->createForm(SeasonType::class, $season);
