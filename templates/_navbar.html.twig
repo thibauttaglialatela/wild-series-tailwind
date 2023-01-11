@@ -106,9 +106,12 @@ navbar navbar-expand-md navbar-red
                         </div>
                     </div>
                 </li>
-                <li class="nav-item pr-2">
-                    <a class="nav-link text-black hover:text-white focus:text-white p-0" href="#">mes favoris</a>
-                </li>
+                {% if is_granted('ROLE_CONTRIBUTOR') %}
+                    <li class="nav-item pr-2">
+                        <a class="nav-link text-black hover:text-white focus:text-white p-0" href="#">mes favoris</a>
+                    </li>
+                {% endif %}
+
                 {% if app.user %}
                     <li class="nav-item pr-2">
                         {{ app.user.email }}

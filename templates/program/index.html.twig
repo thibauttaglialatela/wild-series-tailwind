@@ -20,29 +20,33 @@
         </div>
     </div>
     <div class="flex justify-center items-center">
-        <table class="min-w-full mb-5">
+        <table class="table-auto my-5 border-collapse border border-white max-w-screen-sm lg:max-w-screen-lg">
             <thead class="bg-transparent border-b">
             <tr>
-                <th>id</th>
-                <th>Titre</th>
-                <th>Catégorie</th>
-                <th>Pays</th>
-                <th>Année</th>
-                <th>Actions</th>
+                <th class="border border-white border-solid">id</th>
+                <th class="border border-white border-solid">Titre</th>
+                <th class="border border-white border-solid">Catégorie</th>
+                <th class="border border-white border-solid">Pays</th>
+                <th class="border border-white border-solid">Année</th>
+                <th class="border border-white border-solid">Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for program in programs %}
                 <tr class="bg-gray-100 border-b">
-                    <td>{{ program.id }}</td>
-                    <td>{{ program.title }}</td>
-                    <td>{{ program.category.name }}</td>
-                    <td>{{ program.country }}</td>
-                    <td>{{ program.year }}</td>
-                    <td>
+                    <td class="border border-solid border-white text-center">{{ program.id }}</td>
+                    <td class="border border-solid border-white text-center">{{ program.title }}</td>
+                    <td class="border border-solid border-white text-center">{{ program.category.name }}</td>
+                    <td class="border border-solid border-white text-center">{{ program.country }}</td>
+                    <td class="border border-solid border-white text-center">{{ program.year }}</td>
+                    <td class="border border-solid border-white text-center">
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('program_edit', { 'slug': program.slug }) }}"
                                class="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out">Editer</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_CONTRIBUTOR') %}
+                            <a href="{{ path('program_show', { 'slug': program.slug }) }}"
+                               class="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out">Voir</a>
                         {% endif %}
                     </td>
                 </tr>

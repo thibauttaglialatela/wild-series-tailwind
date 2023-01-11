@@ -60,6 +60,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'edit', methods: ['POST', 'GET'])]
+    #[IsGranted('ROLE_ADMIN', null, 'L\'édition d\'une catégorie n\'est possible que par un administrateur', Response::HTTP_FORBIDDEN)]
     public function edit(Request $request, Category $category, CategoryRepository $categoryRepository): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
@@ -77,6 +78,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
+    #[IsGranted('ROLE_ADMIN', null, 'La suppression d\'une catégorie n\'est possible que par un administrateur', Response::HTTP_FORBIDDEN)]
     public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
     {
         $token = $request->get('_token');

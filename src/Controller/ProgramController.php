@@ -11,6 +11,7 @@ use App\Form\ProgramType;
 use App\Repository\CommentRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
+use App\Service\CommentAverage;
 use App\Service\ProgramDuration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -104,7 +105,7 @@ class ProgramController extends AbstractController
     #[Route('/{slug}/season/{seasonId}/episode/{episode_slug}', name: 'episode_show', requirements: ['seasonId' => '\d+', 'episodeId' => '\d+'])]
     #[Entity('season', options: ['id' => 'seasonId'])]
     #[ParamConverter('episode', class: 'App\Entity\Episode', options: ['mapping' => ['episode_slug' => 'slug']])]
-    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, CommentRepository $commentRepository): Response
+    public function showEpisode(CommentAverage $commentAverage, Program $program, Season $season, Episode $episode, Request $request, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
 
@@ -118,6 +119,9 @@ class ProgramController extends AbstractController
             return $this->redirectToRoute('program_episode_show', ['slug' => $program->getSlug(), 'seasonId' => $season->getId(), 'episode_slug' => $episode->getSlug()], Response::HTTP_SEE_OTHER);
         }
         $comments = $commentRepository->findBy(['episode' => $episode->getId()], ['createdAt' => 'ASC']);
+        $rates = $commentRepository->findAllRates($episode);
+        $arrayRates = array_column($rates, 'rate');
+$averageRates = $commentAverage->calculate($arrayRates);
 
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,
@@ -125,6 +129,7 @@ class ProgramController extends AbstractController
             'episode' => $episode,
             'comments' => $comments,
             'form' => $form->createView(),
+            'average_rates' => $averageRates
         ]);
 
     }
