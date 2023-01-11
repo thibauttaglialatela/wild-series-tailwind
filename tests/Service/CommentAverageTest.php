@@ -9,6 +9,6 @@ final class CommentAverageTest extends TestCase
     public function testCalculate():void
     {
         $commentAverage = new CommentAverage();
-        $this->assertSame(5.2, $commentAverage->calculate(), 'erreur');
+        $this->assertSame(5.2, $commentAverage->calculate([7, 4, 10, 5, 0]), 'erreur');
     }
 }
