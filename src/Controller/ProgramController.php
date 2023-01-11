@@ -120,13 +120,9 @@ class ProgramController extends AbstractController
         }
         $comments = $commentRepository->findBy(['episode' => $episode->getId()], ['createdAt' => 'ASC']);
         $rates = $commentRepository->findAllRates($episode);
-        $arrayRates = [];
-        foreach ($rates as $key => $value) {
-            foreach($value as $keys => $rate){
-                array_push($arrayRates, $rate);
-            }
-        }
+        $arrayRates = array_column($rates, 'rate');
 $averageRates = $commentAverage->calculate($arrayRates);
+
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
