@@ -10,7 +10,7 @@
             <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Résumé de l'épisode</h3>
             <p class="font-sans text-left mx-4 lg:mx-20 text-base md:text-xl xl:text-2xl">{{ episode.synopsis }}</p>
             <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">Durée : {{ episode.duration }} minutes</h4>
-            <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">Note moyenne des commentaires : {{ ( average_rates is same as 0.0) ? 'Aucune note':  average_rates  }}</h4>
+            <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">Note moyenne des commentaires : {{ ( average_rates is same as 0.0) ? : average_rates  }}</h4>
             {% if app.user %}
                 <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Ajout d'un commentaire</h3>
                 <div class="flex justify-center my-3 md:my-6">
