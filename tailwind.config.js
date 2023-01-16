@@ -11,7 +11,7 @@ module.exports = {
             black: '#070600',
             red: '#f76c6c',
             white: '#eee',
-            green: '#0f8d0f',
+            green: '#0F7B3A',
         },
         fontFamily: {
             sans: ['"Open Sans"', "sans-serif"],
