@@ -1,0 +1,20 @@
+<div class="flex items-center flex-row justify-center mx-4 mb-2 rounded-lg shadow-lg max-w-xs">
+    <div class="justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4 ">
+        {% if programPoster %}
+            <img src="{{ cardPosterUrl }}" alt="{{ imgAlt }}" class="w-full h-auto object-contain rounded-t-lg">
+        {% else %}
+            <img src="https://picsum.photos/id/184/300/200" alt="ordinateur" class="w-full h-auto object-contain rounded-t-lg">
+        {% endif %}
+        <div class="w-full p-4 justify-start flex flex-col">
+            <h4 class="border-b-2 text-lg" id="whoobe-3mr7n">{{ programTitle }}</h4>
+            <p class="my-4 text-base" id="whoobe-950fw">{{ programSynopsis }}</p>
+            <button>
+                {{ component('_button', {
+                    buttonUrl: path('program_show', {'slug': programSlug}),
+                    buttonText: "En savoir plus"
+                })
+                }}
+            </button>
+        </div>
+    </div>
+</div>
