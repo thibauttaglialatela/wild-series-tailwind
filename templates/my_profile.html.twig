@@ -2,7 +2,7 @@
 {% block title %}{{ parent() }} - Profil de {{ app.user.email }}{% endblock %}
 {% block body %}
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold
-    uppercase">Mon profil d'utilisateur</h1>
+    uppercase">Bienvenue {{ app.user.firstname }} {{ app.user.lastname }}</h1>
     <section class="flex font-medium items-center justify-center h-screen">
 
         <section class="max-w-fit mx-auto bg-red rounded-2xl px-8 py-6 shadow-lg">
@@ -16,7 +16,7 @@
                 <h2 class="text-black font-sans text-2xl tracking-wide">{{ app.user.email }}</h2>
             </div>
             <p class="text-black font-sans font-semibold mt-2.5">
-                Connecté
+                {{ app.user.firstname }} <br> {{ app.user.lastname }}
             </p>
 
             <div class="h-1 w-full bg-black mt-8 rounded-full">
