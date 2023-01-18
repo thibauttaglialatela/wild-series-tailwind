@@ -8,6 +8,7 @@ use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\CommentType;
 use App\Form\ProgramType;
+use App\Form\SearchProgramType;
 use App\Repository\CommentRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
@@ -15,7 +16,6 @@ use App\Service\CommentAverage;
 use App\Service\ProgramDuration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,11 +30,21 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProgramController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ProgramRepository $programRepository): Response
+    public function index(ProgramRepository $programRepository, Request $request): Response
     {
-        $programs = $programRepository->findAll();
-        return $this->render('program/index.html.twig', [
+        $form = $this->createForm(SearchProgramType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $programs = $form->getData();
+            $programs = $programRepository->findBy(['title' => array_values($programs)]);
+        } else {
+            $programs = $programRepository->findAll();
+        }
+
+        return $this->renderForm('program/index.html.twig', [
             'programs' => $programs,
+            'form' => $form,
         ]);
     }
 
@@ -121,7 +131,7 @@ class ProgramController extends AbstractController
         $comments = $commentRepository->findBy(['episode' => $episode->getId()], ['createdAt' => 'ASC']);
         $rates = $commentRepository->findAllRates($episode);
         $arrayRates = array_column($rates, 'rate');
-$averageRates = $commentAverage->calculate($arrayRates);
+        $averageRates = $commentAverage->calculate($arrayRates);
 
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,
