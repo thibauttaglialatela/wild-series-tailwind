@@ -46,9 +46,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 50,
+        maxMessage: 'Le prénom ne peut dépasser {{ limit }}'
+    )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 80)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 50,
+        maxMessage: 'Le prénom ne peut dépasser {{ limit }}'
+    )]
     private ?string $lastname = null;
 
     public function __construct()
