@@ -23,7 +23,6 @@
         <table class="table-auto my-5 border-collapse border border-white max-w-screen-sm lg:max-w-screen-lg">
             <thead class="bg-transparent border-b">
             <tr>
-                <th class="border border-white border-solid">id</th>
                 <th class="border border-white border-solid">Titre</th>
                 <th class="border border-white border-solid">Catégorie</th>
                 <th class="border border-white border-solid">Pays</th>
@@ -34,7 +33,6 @@
             <tbody>
             {% for program in programs %}
                 <tr class="bg-gray-100 border-b">
-                    <td class="border border-solid border-white text-center">{{ program.id }}</td>
                     <td class="border border-solid border-white text-center">{{ program.title }}</td>
                     <td class="border border-solid border-white text-center">{{ program.category.name }}</td>
                     <td class="border border-solid border-white text-center">{{ program.country }}</td>
