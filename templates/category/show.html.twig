@@ -2,30 +2,20 @@
 {% block title %}{{ parent() }} - {{ category.name }}{% endblock %}
 {% block body %}
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">{{ category.name }}</h1>
+    <div class="flex justify-evenly">
     <section class="grid lg:grid-cols-3 mt-2 grid-flow-row">
         {% for program in program_by_category %}
-            <div class="flex items-center flex-row justify-center max-w-sm md:max-w-md mx-4 mb-2 rounded-lg shadow-lg">
-                <div class="justify-center items-center bg-red text-black shadow-lg rounded-lg flex flex-col my-4">
-                    {% if program.poster %}
-                        <img src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}" class="w-full h-auto object-contain rounded-t-lg">
-                        {% else %}
-                            <img src="https://picsum.photos/id/184/300/200" alt="ordinateur" class="w-full h-auto object-contain rounded-t-lg">
-                    {% endif %}
-                    <div class="w-full p-4 justify-start flex flex-col">
-                        <h4 class="border-b-2 text-lg" id="whoobe-3mr7n">{{ program.title }}</h4>
-                        <p class="my-4 text-base" id="whoobe-950fw">{{ program.synopsis|raw }}</p>
-                        <button>
-                            {{ component('_button', {
-                                buttonUrl: path('program_show', {'slug': program.slug}),
-                                buttonText: "En savoir plus"
-                            })
-                            }}
-                        </button>
-                    </div>
-                </div>
-            </div>
+            {{ component('_card_program', {
+                programPoster: program.poster,
+                cardPosterUrl: vich_uploader_asset(program),
+                imgAlt: program.title,
+                programTitle: program.title,
+                programSynopsis: program.synopsis,
+                programSlug: program.slug
+            }) }}
         {% endfor %}
     </section>
+    </div>
     <div class="flex justify-center mb-5">
         {% if is_granted('ROLE_ADMIN') %}
             {{ include('category/_delete_form.html.twig') }}

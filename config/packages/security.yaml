@@ -35,6 +35,7 @@ security:
     access_control:
         - { path: ^/program/new, roles: ROLE_CONTRIBUTOR }
         - { path: ^/program/[a-zA-Z_0-9-]+/edit, roles: ROLE_CONTRIBUTOR}
+        - { path: ^/my-profile, roles: ROLE_CONTRIBUTOR}
     role_hierarchy:
         ROLE_CONTRIBUTOR: ROLE_USER
         ROLE_ADMIN: ROLE_CONTRIBUTOR

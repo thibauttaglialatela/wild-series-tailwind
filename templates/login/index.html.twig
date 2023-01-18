@@ -3,7 +3,8 @@
 {% block title %}{{ parent() }} - Formulaire de connection{% endblock %}
 
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Formulaire de connection</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Formulaire de
+        connection</h1>
 
     <div class="md:flex md:flex-col md:justify-center md:items-center h-full">
         {% if error %}
@@ -61,12 +62,14 @@
                         <input type="checkbox"
                                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                                id="exampleCheck2" name="_remember_me">
-                        <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Se souvenir de moi</label>
+                        <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Se souvenir de
+                            moi</label>
                     </div>
-                    <a href="#"
-                       class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">Mot de passe oublié</a>
+                    <a href="{{ path('forgot_password_request') }}"
+                       class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">Mot
+                        de passe oublié</a>
                 </div>
-                <p class="text-gray-800 mt-6 text-center">Pas encore membre ? <a href="#"
+                <p class="text-gray-800 mt-6 text-center">Pas encore membre ? <a href="{{ path('app_register') }}"
                                                                                  class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">S'enregistrer</a>
                 </p>
             </form>
