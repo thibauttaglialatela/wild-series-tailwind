@@ -26,4 +26,10 @@ class LoginController extends AbstractController
     {
 
     }
+
+#[Route('/my-profile', name: 'my_profile')]
+    public function getUserInformation(): Response
+{
+    return $this->render('my_profile.html.twig');
+}
 }
