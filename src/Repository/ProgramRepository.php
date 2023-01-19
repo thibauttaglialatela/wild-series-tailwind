@@ -54,6 +54,16 @@ class ProgramRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function findLikeName(string $name)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.title LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('p.title', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    public function findOneBySomeField($value): ?Program
 //    {
 //        return $this->createQueryBuilder('p')
