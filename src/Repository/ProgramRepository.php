@@ -56,10 +56,15 @@ class ProgramRepository extends ServiceEntityRepository
 
     public function findLikeName(string $name)
     {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT p FROM App\Entity\Program p WHERE p.title LIKE :name');
-        $query->setParameter('name', '%' . $name . '%');
-        return $query->getResult();
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.actors', 'a')
+            ->where('p.title LIKE :title')
+            ->orWhere('a.lastname LIKE :lastname')
+            ->orderBy('p.title', 'ASC')
+            ->setParameter('title', '%' . $name . '%')
+            ->setParameter('lastname', '%' . $name . '%')
+            ->getQuery()
+            ->getResult();
     }
 
 //    public function findOneBySomeField($value): ?Program
