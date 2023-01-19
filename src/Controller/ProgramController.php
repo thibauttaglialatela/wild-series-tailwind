@@ -14,6 +14,7 @@ use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
 use App\Service\CommentAverage;
 use App\Service\ProgramDuration;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -178,5 +179,16 @@ class ProgramController extends AbstractController
             $this->addFlash('red', 'La série a été supprimé !');
         }
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/{slug}/watchlist', name:'watchlist',methods: ['GET', 'POST'])]
+    public function addToWatchlist(Program $program, ManagerRegistry $managerRegistry):Response
+    {
+        $em = $managerRegistry->getManager();
+        $user = $this->getUser();
+        $user->addToWatchlist($program);
+        $em->flush();
+
+        return $this->redirectToRoute('program_show', ['slug' => $program->getSlug()], Response::HTTP_CREATED);
+
     }
 }

@@ -30,7 +30,12 @@
                     <h3 class="text-center">Résumé :</h3>
                     <p class="text-left m-2 md:mx-12 font-sans">{{ program.synopsis }}</p>
                 </div>
+                {% if  app.user  %}
+                    <div class="flex justify-center">
+                        <i class="fa-regular fa-heart fa-10x"></i>
+                    </div>
 
+                {% endif %}
                 <div class="md:flex md:justify-evenly">
 
                     <ul>
