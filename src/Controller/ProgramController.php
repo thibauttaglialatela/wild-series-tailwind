@@ -18,6 +18,7 @@ use App\Service\ProgramDuration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -182,7 +183,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{id}/watchlist', name: 'watchlist', methods: ['GET', 'POST'])]
-    public function addToWatchlist(Program $program, UserRepository $userRepository): Response
+    public function addToWatchlist(Program $program, UserRepository $userRepository): JsonResponse
     {
         if (!$program) {
             throw $this->createNotFoundException(
@@ -198,7 +199,9 @@ class ProgramController extends AbstractController
         }
         $userRepository->save($user, true);
 
-        return $this->redirectToRoute('program_show', ['slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
+        return $this->json([
+            'isInWatchlist' => $this->getUser()->isInWatchlist($program)
+        ]);
 
     }
 }

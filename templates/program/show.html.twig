@@ -32,7 +32,7 @@
                 </div>
                 {% if  app.user  %}
                     <div class="flex justify-center">
-                    <a href="{{ path('program_watchlist', {id: program.id}) }}">
+                    <a id="watchlist" href="{{ path('program_watchlist', {id: program.id}) }}">
                         <i class="{{ app.user.isInWatchlist(program) ? 'fa-solid fa-heart fa-2x' : 'fa-regular fa-heart fa-2x' }}"></i>
                     </a>
                     </div>
