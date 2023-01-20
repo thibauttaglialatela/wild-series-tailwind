@@ -30,7 +30,14 @@
                     <h3 class="text-center">Résumé :</h3>
                     <p class="text-left m-2 md:mx-12 font-sans">{{ program.synopsis }}</p>
                 </div>
+                {% if  app.user  %}
+                    <div class="flex justify-center">
+                    <a href="{{ path('program_watchlist', {id: program.id}) }}">
+                        <i class="{{ app.user.isInWatchlist(program) ? 'fa-solid fa-heart fa-2x' : 'fa-regular fa-heart fa-2x' }}"></i>
+                    </a>
+                    </div>
 
+                {% endif %}
                 <div class="md:flex md:justify-evenly">
 
                     <ul>
