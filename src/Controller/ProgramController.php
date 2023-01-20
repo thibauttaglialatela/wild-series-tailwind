@@ -180,7 +180,7 @@ class ProgramController extends AbstractController
         }
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/{slug}/watchlist', name:'watchlist',methods: ['GET', 'POST'])]
+    #[Route('/{id}/watchlist', name:'watchlist',methods: ['GET', 'POST'])]
     public function addToWatchlist(Program $program, ManagerRegistry $managerRegistry):Response
     {
         $em = $managerRegistry->getManager();
