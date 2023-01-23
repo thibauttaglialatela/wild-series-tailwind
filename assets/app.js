@@ -18,25 +18,25 @@ document.querySelector('#watchlist').addEventListener('click', addToWatchlist);
 
 function addToWatchlist(event) {
     event.preventDefault();
-    if (window.fetch) {
-        const watchlistLink = event.currentTarget;
-        const link = watchlistLink.href;
-        //envoyer une requête HTTP à l'aide fetch vers l'URI définit dans le href
-        try {
-            fetch(link)
-                .then(res => res.json())
-                .then(data => {
-                    const watchlistIcon = watchlistLink.firstElementChild;
-                    if (data.isInWatchlist) {
-                        watchlistIcon.classList.remove("fa-regular fa-heart fa-2x");
-                        watchlistIcon.classList.add('fa-solid fa-heart fa-2x');
-                    } else {
-                        watchlistIcon.classList.remove("fa-solid fa-heart fa-2x");
-                        watchlistIcon.classList.add('fa-regular fa-heart fa-2x');
-                    }
-                });
-        } catch (e) {
-            console.log(e);
-        }
+    const watchlistLink = event.currentTarget;
+    const link = watchlistLink.href;
+    const fillHeart = "fa-solid fa-heart fa-2x".split(' ');
+    const emptyHeart = "fa-regular fa-heart fa-2x".split(' ');
+    try {
+        fetch(link)
+            .then(res => res.json())
+            .then(data => {
+                const watchlistIcon = watchlistLink.firstElementChild;
+                if (data.isInWatchlist) {
+                    watchlistIcon.classList.remove(...emptyHeart);
+                    watchlistIcon.classList.add(...fillHeart);
+                } else {
+                    watchlistIcon.classList.remove(...fillHeart);
+                    watchlistIcon.classList.add(...emptyHeart);
+                }
+            })
+    } catch (err) {
+        console.error(err);
     }
 }
+
