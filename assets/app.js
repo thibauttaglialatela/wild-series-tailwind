@@ -22,6 +22,7 @@ function addToWatchlist(event) {
     const link = watchlistLink.href;
     const fillHeart = "fa-solid fa-heart fa-2x".split(' ');
     const emptyHeart = "fa-regular fa-heart fa-2x".split(' ');
+    const addFavorites = document.getElementById('add-favorites');
     try {
         fetch(link)
             .then(res => res.json())
@@ -30,7 +31,11 @@ function addToWatchlist(event) {
                 if (data.isInWatchlist) {
                     watchlistIcon.classList.remove(...emptyHeart);
                     watchlistIcon.classList.add(...fillHeart);
+                    addFavorites.classList.remove('underline');
+                    addFavorites.classList.add('hidden');
                 } else {
+                    addFavorites.classList.remove('hidden');
+                    addFavorites.classList.add('underline');
                     watchlistIcon.classList.remove(...fillHeart);
                     watchlistIcon.classList.add(...emptyHeart);
                 }
