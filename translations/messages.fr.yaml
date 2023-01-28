@@ -1,0 +1,12 @@
+actor.edit: "Edition d'un acteur"
+actor.add: "Ajout d'un acteur"
+actor.delete: 'Effacer un acteur'
+actor.file: "Fiche d'un acteur"
+Update: 'Mise à jour'
+Back: Retour
+actors: 'Les actrices et les acteurs'
+'Are you sure you want to delete this actor?': 'Etes vous sure de vouloir effacer cet acteur ?'
+edit: éditer
+actor.programs: 'Ses séries'
+'This actor is any program for now': "Cette acteur n' est dans aucune série pour le moment"
+actor.birthday: Né le %birthday%

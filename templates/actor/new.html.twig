@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ parent() }} - Ajout d'un acteur{% endblock %}
+{% block title %}{{ parent() }} - {{ 'actor.add'|trans }}{% endblock %}
 
 {% block body %}
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Ajout d'un acteur</h1>
@@ -10,7 +10,7 @@
         <div class="my-3 md:my-5">
             {{ component('_button', {
                 buttonUrl: path('actor_index'),
-                buttonText: 'Retour',
+                buttonText: 'Back'|trans
             }) }}
         </div>
     </section>

@@ -1,7 +1,7 @@
 <form method="post" action="{{ path('actor_delete', {'slug': actor.slug}) }}"
-      onsubmit="return confirm('Etes vous sûre de vouloir supprimer cet(te) acteur(rice) ?');">
+      onsubmit="return confirm({{ 'Are you sure you want to delete this actor?'|trans }});">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ actor.slug) }}">
     <button class="btn text-center inline-block px-6 py-2.5 bg-red text-black font-medium text-md leading-tight uppercase rounded hover:bg-opacity-50 hover:text-black hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
-        Supprimer l'acteur
+        Supprimer l'acteur {{ 'actor.delete'|trans }}
     </button>
 </form>

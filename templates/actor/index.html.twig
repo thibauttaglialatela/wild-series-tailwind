@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Les acteurs{% endblock %}
+{% block title %}{{ parent() }} - {{ 'actors'|trans }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Les actrices et
-        acteurs</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">
+        {{ 'actors'|trans }}
+    </h1>
     <div class="flex flex-row justify-evenly mt-5">
         {% if is_granted('ROLE_CONTRIBUTOR') %}
             {{ component('_button', {
                 buttonUrl: path('actor_new'),
-                buttonText: 'Créer la fiche d\'un acteur'
+                buttonText: 'actor.add'|trans
             }) }}
         {% endif %}
 

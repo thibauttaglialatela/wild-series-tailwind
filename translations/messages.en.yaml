@@ -1,0 +1,13 @@
+actor:
+  edit: Edit an actor
+  add: Add an actor
+  file: An actor's file
+  birthday: Born the %birthday%
+  programs: His programs
+  delete: Delete this actor
+Update: Update
+Back: Back
+actors: The actors
+'This actor is any program for now': 'This actor is any program for now'
+'Are you sure you want to delete this actor?': 'Are you sure you want to delete this actor?'
+
