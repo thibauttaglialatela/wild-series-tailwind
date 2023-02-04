@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block  title %}{{ parent() }} - édition d'un acteur{% endblock %}
+{% block  title %}{{ parent() }} - {{ 'actor.edit'|trans }}{% endblock %}
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Edition de la fiche d'un acteur</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">
+        {{ 'actor.edit'|trans }}
+    </h1>
     <section class="flex flex-col justify-center items-center">
         <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
-            {{ include('actor/_form.html.twig', {'button_label':'Mettre à jour'}) }}
+            {{ include('actor/_form.html.twig', {'button_label':'Update'|trans}) }}
         </div>
         {{ component('_button', {
             buttonUrl: path('actor_show', {slug:actor.slug}),
-            buttonText: 'Retour'
+            buttonText: 'Back'|trans
         }) }}
     </section>
 {% endblock %}

@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ parent() }} - Profil de {{ app.user.email }}{% endblock %}
+{% block title %}{{ parent() }} - {{ 'user_email.profile'|trans({'%user_email%' : app.user.email} ) }}{% endblock %}
 {% block body %}
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold
-    uppercase">Bienvenue {{ app.user.firstname }} {{ app.user.lastname }}</h1>
+    uppercase">
+        {{ 'user.welcome'|trans({'%user_firstname%' : app.user.firstname, '%user_lastname%' : app.user.lastname}) }}
+    </h1>
     <section class="flex font-medium items-center justify-center h-screen">
 
         <section class="max-w-fit mx-auto bg-red rounded-2xl px-8 py-6 shadow-lg">
@@ -25,7 +27,7 @@
 
 
             <div class="mt-3 text-black font-sans text-sm">
-                <span class="text-gray-400 font-semibold text-lg">Mes séries favorites</span>
+                <span class="text-gray-400 font-semibold text-lg">{{'My favorite programs'|trans}}</span>
                 <ul>
                     {% for program in app.user.watchlist %}
                         <li class="font-medium leading-tight text-base mt-0 mb-2 text-black">{{ program.title }}</li>

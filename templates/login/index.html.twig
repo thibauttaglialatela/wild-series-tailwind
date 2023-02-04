@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Formulaire de connection{% endblock %}
+{% block title %}{{ parent() }} - {{ 'login.form'|trans }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Formulaire de
-        connection</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">
+        {{ 'login.form'|trans }}
+    </h1>
 
     <div class="md:flex md:flex-col md:justify-center md:items-center h-full">
         {% if error %}
@@ -13,7 +14,8 @@
         <div class="block p-6 rounded-lg shadow-lg bg-red max-w-sm lg:max-w-lg">
             <form action="{{ path('app_login') }}" method="post">
                 <div class="form-group mb-6">
-                    <label for="username" class="form-label inline-block mb-2 text-gray-700">Email:</label>
+                    <label for="username"
+                           class="form-label inline-block mb-2 text-gray-700">{{ 'user.email'|trans }}</label>
                     <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control
         block
         w-full
@@ -29,10 +31,11 @@
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                           aria-describedby="emailHelp" placeholder="Entrez votre e-mail">
+                           aria-describedby="emailHelp" placeholder={{ "Enter your email"|trans }}>
                 </div>
                 <div class="form-group mb-6">
-                    <label for="password" class="form-label inline-block mb-2 text-gray-700">Mot de passe</label>
+                    <label for="password"
+                           class="form-label inline-block mb-2 text-gray-700">{{ 'password'|trans }}</label>
                     <input type="password" id="password" name="_password" class="form-control block
         w-full
         px-3
@@ -47,7 +50,7 @@
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                           placeholder="mot de passe">
+                           placeholder={{ "password"|trans }}>
                 </div>
 
                 <input type="hidden" name="{{ path('Home_page') }}" value="/account">
@@ -55,22 +58,27 @@
                 <button type="submit" class="
       w-full
       btn text-center inline-block px-6 py-2.5 bg-white text-black font-medium text-md leading-tight uppercase rounded hover:opacity-50 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
-                    Se connecter
+                    {{ 'account.login'|trans }}
                 </button>
                 <div class="flex flex-col justify-between items-center my-4">
                     <div class="form-group form-check">
                         <input type="checkbox"
                                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                                id="exampleCheck2" name="_remember_me">
-                        <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Se souvenir de
-                            moi</label>
+                        <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">
+                            {{ 'remember me'|trans }}
+                        </label>
                     </div>
                     <a href="{{ path('forgot_password_request') }}"
-                       class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">Mot
-                        de passe oublié</a>
+                       class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                        {{ 'password forgotten'|trans }}
+                    </a>
                 </div>
-                <p class="text-gray-800 mt-6 text-center">Pas encore membre ? <a href="{{ path('app_register') }}"
-                                                                                 class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">S'enregistrer</a>
+                <p class="text-gray-800 mt-6 text-center">{{ 'Not a member?'|trans }}
+                    <a href="{{ path('app_register') }}"
+                       class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                        {{ 'account.register'|trans }}
+                    </a>
                 </p>
             </form>
         </div>

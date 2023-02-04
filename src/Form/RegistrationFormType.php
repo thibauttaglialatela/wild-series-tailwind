@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -21,12 +22,12 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
+                'label' => new TranslatableMessage('Firstname'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom',
+                'label' => new TranslatableMessage('Lastname'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
@@ -37,7 +38,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => 'Veuillez accepter les conditions d\'utilisation',
+                'label' => new TranslatableMessage('Please accept the terms of use'),
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Veuillez accepter nos condition d\'utilisation',
@@ -51,7 +52,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez créer un mot de passe',
+                        'message' => new TranslatableMessage('Please create a password'),
                     ]),
                     new Length([
                         // max length allowed by Symfony for security reasons

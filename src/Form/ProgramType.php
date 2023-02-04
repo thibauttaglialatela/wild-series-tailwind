@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProgramType extends AbstractType
@@ -19,12 +20,12 @@ class ProgramType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label'=>'Titre de la série',
+                'label'=> new TranslatableMessage('The title of the program'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('synopsis', TextareaType::class, [
-                'label' => 'Résumé de la série',
+                'label' => new TranslatableMessage('Summary of the program'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['row' => 5, 'col' => 10, 'class' => 'text-black md:text-xl w-full'],
                 'sanitize_html' => true,
@@ -33,22 +34,22 @@ class ProgramType extends AbstractType
             ->add('posterFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
-                'delete_label' => 'supprimer le fichier',
+                'delete_label' => new TranslatableMessage('delete the file'),
                 'asset_helper' => true,
-                'label' => 'Image de la série'
+                'label' => new TranslatableMessage('Picture of the program'),
             ])
             ->add('country', TextType::class, [
-                'label' => 'Pays',
+                'label' => new TranslatableMessage('Country'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('year', TextType::class, [
-                'label' => 'Année de création',
+                'label' => new TranslatableMessage('Creation year'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('category', EntityType::class, [
-                'label' => 'Catégorie',
+                'label' => new TranslatableMessage('Category'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'class' => Category::class,
                 'choice_label' => 'name',
@@ -59,7 +60,7 @@ class ProgramType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'by_reference' => false,
-                'label' => 'Les acteurs',
+                'label' => new TranslatableMessage('The actors'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])

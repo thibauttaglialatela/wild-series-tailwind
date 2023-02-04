@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ActorType extends AbstractType
@@ -20,24 +21,24 @@ class ActorType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
+                'label' => new TranslatableMessage('firstname'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom',
+                'label' => new TranslatableMessage('Lastname'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('birth_date', DateType::class, [
-                'label' => 'Date de naissance',
+                'label' => new TranslatableMessage('birthday'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full'],
                 'widget' => 'single_text',
                 'input' => 'datetime',
             ])
             ->add('posterFile', VichImageType::class, [
-                'label' => 'Sa photo',
+                'label' => new TranslatableMessage('His picture'),
                 'required' => false,
             ])
             ->add('programs', EntityType::class, [
@@ -46,7 +47,7 @@ class ActorType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'by_reference' => false,
-                'label' => 'Les séries dans lesquelles il(elle) joue',
+                'label' => new TranslatableMessage('The programs in which she or he plays'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])

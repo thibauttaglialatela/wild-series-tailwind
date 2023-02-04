@@ -18,16 +18,16 @@
                     <h3 class="text-center">{{ program.country }}</h3>
                     <h3 class="text-center">{{ program.year }}</h3>
                 </div>
-                <h4 class="text-center my-2 md:my-5">Catégorie : {{ program.category.name }}</h4>
+                <h4 class="text-center my-2 md:my-5">{{ 'Category: category_name'|trans({'%category_name%' : program.category.name}) }}</h4>
 
                 {% if seasons is empty %}
-                    <h5 class="text-center my-2 md:my-5">Aucune saison pour cette série</h5>
+                    <h5 class="text-center my-2 md:my-5">{{ 'No season for this program'|trans }}</h5>
                 {% else %}
-                    <h5 class="text-center my-2 md:my-5">Temps total de visionnage : {{ program_duration }}</h5>
+                    <h5 class="text-center my-2 md:my-5">{{ 'Total viewing time: program_duration'|trans({'%program_duration%': program_duration}) }}</h5>
                 {% endif %}
 
                 <div>
-                    <h3 class="text-center">Résumé :</h3>
+                    <h3 class="text-center">{{ 'Summary:'|trans }}</h3>
                     <p class="text-left m-2 md:mx-12 font-sans">{{ program.synopsis }}</p>
                 </div>
                 {% if  app.user  %}
@@ -42,20 +42,20 @@
                 <div class="md:flex md:justify-evenly">
 
                     <ul>
-                        <h3 class="text-center font-bold">Saisons</h3>
+                        <h3 class="text-center font-bold">{{ 'Seasons'|trans }}</h3>
                         {% if seasons is empty %}
                             <div>
-                                <p class="text-base text-center md:text-xl">Aucune saison pour cette série</p>
+                                <p class="text-base text-center md:text-xl">{{ 'No season for this program'|trans }}</p>
                             </div>
                         {% endif %}
                         {% for season in seasons|sort((a,b) => a.number <=> b.number) %}
                             <li class="text-center"><a
                                         href="{{ path('program_season_show', {slug: program.slug, seasonId: season.id}) }}"
-                                        class="hover:underline">Saison - {{ season.number }}</a></li>
+                                        class="hover:underline">{{ 'Season - season_number'|trans({'%season_number%' : season.number}) }}</a></li>
                         {% endfor %}
                     </ul>
                     <div class="flex flex-col justify-center items-center">
-                        <h3 class="text-center font-bold">Acteurs :</h3>
+                        <h3 class="text-center font-bold">{{ 'Actors:'|trans }}</h3>
                         <div class="flex justify-center">
                             <ul class="shadow shadow-red mb-2">
                                 {% for actor in program.actors %}
@@ -65,7 +65,7 @@
                                     </li>
                                 {% else %}
                                     <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
-                                        Aucun acteur pour cette série.
+                                        {{ 'No actor for this program.'|trans }}
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -77,17 +77,17 @@
         <div class="flex flex-col my-4 md:flex-row md:justify-evenly md:my-9">
             {{ component('_button', {
                 buttonUrl: path('category_show', {categoryName: program.category.name}),
-                buttonText: 'Retour'
+                buttonText: 'Back'|trans
             }) }}
 
             {% if is_granted("ROLE_ADMIN") or app.user == program.owner %}
                 {{ component('_button', {
                     buttonUrl: path('season_new', {program_slug: program.slug}),
-                    buttonText: "ajout d'une saison"
+                    buttonText: "season.add"|trans
                 }) }}
                 {{ component('_button', {
                     buttonUrl: path('program_edit', {slug: program.slug}),
-                    buttonText: "éditer la série",
+                    buttonText: "program.edit"|trans,
                 }) }}
             {% endif %}
 

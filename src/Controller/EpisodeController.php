@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
-use App\Form\CommentType;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -20,6 +18,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/episode', name: 'episode_')]
 class EpisodeController extends AbstractController
@@ -36,7 +35,14 @@ class EpisodeController extends AbstractController
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[IsGranted('ROLE_ADMIN', null, 'Réservé à un administrateur', Response::HTTP_FORBIDDEN)]
-    public function new(Request $request, EpisodeRepository $episodeRepository, Season $season, Program $program, SluggerInterface $slugger, MailerInterface $mailer): Response
+    public function new(Request             $request,
+                        EpisodeRepository   $episodeRepository,
+                        Season              $season,
+                        Program             $program,
+                        SluggerInterface    $slugger,
+                        MailerInterface     $mailer,
+                        TranslatorInterface $translator
+    ): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -47,7 +53,7 @@ class EpisodeController extends AbstractController
             $slug = $slugger->slug($episode->getTitle());
             $episode->setSlug($slug);
             $episodeRepository->save($episode, true);
-            $this->addFlash('green', "Un épisode a bien été ajouté");
+            $this->addFlash('green', $translator->trans("An episode has been add"));
             $email = (new Email())
                 ->to('user@example.com')
                 ->subject('Nouvel épisode ajouté')
@@ -84,14 +90,14 @@ class EpisodeController extends AbstractController
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]
     #[IsGranted('ROLE_ADMIN', null, 'Accés refusé sauf aux personnes ayant un rang administrateur', Response::HTTP_FORBIDDEN)]
-    public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
+    public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episodeRepository->save($episode, true);
-            $this->addFlash('green', 'L\'épisode a bien été édité');
+            $this->addFlash('green', $translator->trans('The episode has been edited'));
 
             return $this->redirectToRoute('program_season_show', ['seasonId' => $season->getId(), 'slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
         }
@@ -108,7 +114,7 @@ class EpisodeController extends AbstractController
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['seasonId' => 'id']])]
     #[IsGranted('ROLE_ADMIN', null, 'Accés refusé sauf aux personnes ayant un rang administrateur', Response::HTTP_FORBIDDEN)]
-    public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
+    public function delete(TranslatorInterface $translator, Request $request, Episode $episode, EpisodeRepository $episodeRepository, Program $program, Season $season): Response
     {
         $token = $request->get('_token');
         if (!is_string($token)) {
@@ -116,7 +122,7 @@ class EpisodeController extends AbstractController
         }
         if ($this->isCsrfTokenValid('delete' . $episode->getId(), $token)) {
             $episodeRepository->remove($episode, true);
-            $this->addFlash('red', "Attention un épisode a été supprimé !");
+            $this->addFlash('red', $translator->trans("Be careful, an episode was deleted!"));
         }
 
         return $this->redirectToRoute('program_season_show', ['programId' => $program->getId(), 'seasonId' => $season->getId()], Response::HTTP_SEE_OTHER);

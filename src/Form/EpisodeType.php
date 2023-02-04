@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class EpisodeType extends AbstractType
 {
@@ -16,22 +17,22 @@ class EpisodeType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre de l\'épisode',
+                'label' => new TranslatableMessage('Title of the episose'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('number', NumberType::class, [
-                'label' => 'numéro',
+                'label' => new TranslatableMessage('Number'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('synopsis', TextareaType::class, [
-                'label' => 'Résumé',
+                'label' => new TranslatableMessage('Summary'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('duration', NumberType::class, [
-                'label' => 'Durée de l\'épisode en minutes',
+                'label' => new TranslatableMessage('Duration of the episode, in minutes'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])

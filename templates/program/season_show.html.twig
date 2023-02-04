@@ -4,26 +4,31 @@
     <div class="flex flex-col items-center justify-evenly min-h-screen">
         <section>
             <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">
-                Saison {{ season.number }} de {{ program.title }}</h1>
+                {{ 'season_number.program'|trans({'%season_number%' : season.number, '%program%' : program.title}) }}
+            </h1>
             <h3 class="font-serif text-center font-bold text-2xl md:text-3xl xl:text-4xl">{{ season.year }}</h3>
         </section>
         <div class="flex flex-col md:grid md:grid-cols-2 md:gap-x-6">
             <div>
-                <h4 class="font-serif text-center underline text-lg md:text-xl xl:text-2xl">Description</h4>
+                <h4 class="font-serif text-center underline text-lg md:text-xl xl:text-2xl">{{ 'season.description'|trans }}</h4>
                 <p class="font-sans text-left mx-4 lg:mx-20 text-base md:text-lg">{{ season.description }}</p>
             </div>
             <div>
-                <h4 class="font-serif text-center underline text-lg md:text-xl xl:text-2xl">Liste des épisodes</h4>
+                <h4 class="font-serif text-center underline text-lg md:text-xl xl:text-2xl">{{ 'episode.list'|trans }}</h4>
                 {% if episodes is empty %}
                     <div>
-                        <p class="text-base text-center md:text-xl">Aucun épisode enregistré</p>
+                        <p class="text-base text-center md:text-xl">{{ 'No episode registered'|trans }}</p>
                     </div>
                 {% endif %}
                 <ul class="list-inside shadow shadow-red mb-2">
                     {% for episode in episodes|sort((a,b) => a.number <=> b.number) %}
                         <li class="flex px-6 py-2 border-b border-gray-200 w-full lg:max-w-lg rounded-t-lg hover:underline">
                             <a
-                                    href="{{ path('program_episode_show', {slug: program.slug, seasonId: season.id, episode_slug: episode.slug}) }}">Episode {{ episode.number }} {{ episode.title }}</a></li>
+                                    href="{{ path('program_episode_show', {slug: program.slug, seasonId: season.id, episode_slug: episode.slug}) }}">
+{#                                Episode {{ episode.number }} {{ episode.title }}#}
+                                {{ 'episode_number.episode_title'|trans({'%episode_number%' : episode.number, '%episode_title%' : episode.title}) }}
+                            </a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -32,22 +37,22 @@
             {% if is_granted('ROLE_ADMIN') %}
                 {{ component('_button', {
                     buttonUrl: path('season_show', {'id': season.id, 'program_slug': program.slug}),
-                    buttonText: "Montrer"
+                    buttonText: "season.show"|trans
                 }) }}
                 {{ component('_button', {
                     buttonUrl: path('season_edit', {'id': season.id, 'program_slug': program.slug}),
-                    buttonText: "Editer"
+                    buttonText: "season.edit"|trans
                 }) }}
                 {{ component('_button', {
                     buttonUrl: path('episode_new', {'season_id': season.id, 'program_slug': program.slug}),
-                    buttonText: "Ajouter un épisode"
+                    buttonText: "episode.add"|trans
                 }) }}
             {% endif %}
 
         </div>
         {{ component('_button', {
             buttonUrl: path('program_show', {'slug': program.slug}),
-            buttonText: "Retour"
+            buttonText: "program.back"|trans
         }) }}
     </div>
 {% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class SeasonType extends AbstractType
 {
@@ -15,18 +16,18 @@ class SeasonType extends AbstractType
     {
         $builder
             ->add('number', NumberType::class, [
-                'label' => 'Numéro de la saison',
+                'label' => new TranslatableMessage('Season number'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
             ])
             ->add('year', NumberType::class, [
-                'label' => 'Année',
+                'label' => new TranslatableMessage('Year'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full']
 
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'résumé de la saison',
+                'label' => new TranslatableMessage('Summary of the season'),
                 'label_attr' => ['class' => 'text-white text-base md:text-2xl font-serif font-bold'],
                 'attr' => ['row' => 5, 'col' => 10, 'class' => 'text-black md:text-xl w-full']
             ])

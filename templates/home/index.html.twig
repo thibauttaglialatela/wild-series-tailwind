@@ -14,8 +14,9 @@
 
     <section class="flex flex-col justify-center">
         <h1 class="text-shadow-lg shadow-red font-serif text-4xl md:text-9xl text-center uppercase">wild series</h1>
-        <h2 class="font-serif leading-tight text-4xl md:text-5xl mt-5 mb-10 text-white text-center underline">Nos
-            nouveautés</h2>
+        <h2 class="font-serif leading-tight text-4xl md:text-5xl mt-5 mb-10 text-white text-center underline">
+            {{ 'Our last programs'|trans }}
+        </h2>
         <div class="flex justify-evenly">
             <section class="grid lg:grid-cols-3 gap-x-10">
                 {% for program in last_program_added %}

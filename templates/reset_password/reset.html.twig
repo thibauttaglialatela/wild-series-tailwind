@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Changement de mot de passe{% endblock %}
+{% block title %}{{ parent() }} - {{ 'password.reset'|trans }}{% endblock %}
 
 {% block body %}
     {#<h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold
     uppercase>Reset your password</h1>#}
     <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold
-    uppercase>Reset your password">Changer votre mot de passe</h1>
+    uppercase>Reset your password">
+        {{ 'password.reset'|trans }}
+    </h1>
 <section class="flex flex-col justify-center items-center">
     <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
     {{ form_start(resetForm) }}
