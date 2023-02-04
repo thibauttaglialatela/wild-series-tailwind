@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class CommentType extends AbstractType
 {
@@ -16,13 +17,13 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('comment', TextareaType::class, [
-                'label' => 'Commentaire',
+                'label' => new TranslatableMessage('Comment'),
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full'],
                 'sanitize_html' => true,
             ])
             ->add('rate', NumberType::class, [
-                'label' => 'Note de l\'épisode',
+                'label' => new TranslatableMessage('rate of the episode'),
                 'help' => 'Donnez une note à cet épisode en 0 et 10',
                 'label_attr' => ['class' => 'text-white md:text-2xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black md:text-xl w-full'],

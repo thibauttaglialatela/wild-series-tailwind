@@ -3,47 +3,69 @@
 {% block body %}
     <div class="flex flex-col items-center justify-around min-h-screen">
         <section>
-            <h1 class="text-center text-shadow-lg shadow-red uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8 md:mx-12">{{ episode.title }}</h1>
-            <h2 class="font-serif text-center font-bold text-2xl px-4 md:text-3xl md:px-52 xl:text-4xl xl:px-60">Episode {{ episode.number }} de la saison {{ season.number }} de {{ program.title }}</h2>
+            <h1 class="text-center text-shadow-lg shadow-red uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8 md:mx-12">
+                {{ episode.title }}
+            </h1>
+            <h2 class="font-serif text-center font-bold text-2xl px-4 md:text-3xl md:px-52 xl:text-4xl xl:px-60">
+{#                Episode {{ episode.number }} de la saison {{ season.number }} de {{ program.title }}#}
+                {{ 'episode_number.season_number.program_title'|trans({'%episode_number%':episode.number, '%season_number%':season.number, '%program_title%':program.title}) }}
+            </h2>
         </section>
         <section>
-            <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Résumé de l'épisode</h3>
+            <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">
+                {{ 'episode.summary'|trans }}
+            </h3>
             <p class="font-sans text-left mx-4 lg:mx-20 text-base md:text-xl xl:text-2xl">{{ episode.synopsis }}</p>
-            <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">Durée : {{ episode.duration }} minutes</h4>
-            <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">Note moyenne des commentaires : {{ ( average_rates is same as 0.0) ? 'aucune note attribuée' : average_rates  }}</h4>
+            <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">
+{#                Durée : {{ episode.duration }} minutes#}
+                {{ 'episode_duration'|trans({'%episode_duration%' : episode.duration}) }}
+            </h4>
+            <h4 class="font-serif leading-tight text-2xl mt-0 mb-2 text-white text-center pt-3">
+                {{ 'average rating:'|trans }} {{ ( average_rates is same as 0.0) ? 'No rate'|trans : average_rates  }}
+            </h4>
             {% if app.user %}
-                <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Ajout d'un commentaire</h3>
+                <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">
+                    {{ 'comment.add'|trans }}
+                </h3>
                 <div class="flex justify-center my-3 md:my-6">
                     {{ include('comment/_modal_create_comment.html.twig') }}
                 </div>
             {% endif %}
-            <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">Liste des commentaires.</h3>
+            <h3 class="font-serif text-center underline text-lg md:text-2xl xl:text-3xl">
+                {{ 'comment.list'|trans }}
+            </h3>
             {% if comments is empty %}
-                <p class="font-sans text-center mx-4 lg:mx-20 text-base md:text-xl xl:text-2xl">Aucun commentaire pour cet épisode</p>
+                <p class="font-sans text-center mx-4 lg:mx-20 text-base md:text-xl xl:text-2xl">
+                    {{ 'episode.no_comment'|trans }}
+                </p>
             {% endif %}
             {% for comment in comments %}
             <ol class="mt-5 border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-center md:gap-6">
                 <li>
                     <div class="flex items-center pt-3">
                         <div class="bg-gray-300 w-2 h-2 rounded-full -ml-1 mr-3"></div>
-                        <p class="text-gray-500 text-lg">{{ comment.createdAt|format_datetime('full', 'none') }}</p>
+                        <p class="text-gray-500 text-lg">
+                            {{ comment.createdAt|format_datetime('full', 'none') }}
+                        </p>
 
                     </div>
                     <div class="mt-0.5 ml-4 mb-6">
-                        <h6 class="font-medium leading-tight text-base mt-0 mb-2 text-white underline">Note : {{ comment.rate }}</h6>
+                        <h6 class="font-medium leading-tight text-base mt-0 mb-2 text-white underline">
+                            {{ 'comment.note'|trans({'%comment_note%' : comment.rate}) }}
+                        </h6>
                         <p class="text-gray-500 mb-3">{{ comment.comment|raw }}</p>
-                        <p class="text-gray-500 text-base">Auteur : {{ comment.author }}</p>
+                        <p class="text-gray-500 text-base">
+                            {{ 'comment.author'|trans({'%comment_author%' : comment.author}) }}
+                        </p>
                     </div>
                     {% if is_granted("ROLE_ADMIN") or app.user == comment.author %}
                         <div class="flex justify-center items-center mb-5">
                             {{ component('_button', {
                                 buttonUrl: path('comment_edit', {'id': comment.id, 'program_slug': program.slug, 'season_id': season.id, 'episode_slug': episode.slug}),
-                                buttonText: 'éditer le commentaire'
+                                buttonText: 'comment.edit'|trans
                             }) }}
                         </div>
                     {% endif %}
-
-
                 </li>
             </ol>
             {% endfor %}
@@ -53,7 +75,7 @@
             <div class="flex flex-col justify-around md:flex-row md:w-screen md:justify-evenly">
                 {{ component('_button', {
                     buttonUrl: path('episode_edit', {'program_slug': program.slug, 'season_id': season.id, 'slug': episode.slug }),
-                    buttonText: 'éditer'
+                    buttonText: 'episode.edit'|trans
                 }) }}
                 {% include 'episode/_delete_form.html.twig' %}
             </div>
@@ -62,7 +84,7 @@
         <div class="mb-10">
             {{ component('_button', {
                 buttonUrl: path('program_season_show', {slug: program.slug, seasonId: season.id}),
-                buttonText: "Retour à la saison"
+                buttonText: "season.show.back"|trans
             }) }}
         </div>
     </div>

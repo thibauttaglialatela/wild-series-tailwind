@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Nouvel épisode{% endblock %}
+{% block title %}{{ parent() }} - {{ 'episode.new'|trans }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Créer un nouvel épisode</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">
+        {{ 'episode.create'|trans }}
+    </h1>
 <section class="flex flex-col justify-center items-center">
     <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-md">
         {{ include('episode/_form.html.twig') }}
     </div>
     {{ component('_button', {
         buttonUrl: path('program_season_show', {'slug': program.slug, 'seasonId': season.id}),
-        buttonText: 'Revenir à la saison'
+        buttonText: 'program.season.show.back'|trans
     }) }}
 </section>
 {% endblock %}

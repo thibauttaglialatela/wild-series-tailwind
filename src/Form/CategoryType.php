@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class CategoryType extends AbstractType
 {
@@ -15,12 +16,12 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de la catégorie',
+                'label' => new TranslatableMessage('The name of the category'),
                 'label_attr' => ['class' => 'text-white text-lg md:text-3xl font-serif font-bold'],
                 'attr' => ['class' => 'text-black w-full'],
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'créer une catégorie',
+                'label' => new TranslatableMessage('Create a category'),
                 'attr' => ['class' => 'btn text-center inline-block mt-5 px-6 py-2.5 bg-white text-black font-medium text-md leading-tight uppercase rounded hover:bg-black hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out']
             ])
         ;

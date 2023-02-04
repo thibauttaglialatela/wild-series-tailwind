@@ -1,13 +1,15 @@
 {% extends '/base.html.twig' %}
 
-{% block title %}{{ parent() }} - Inscription{% endblock %}
+{% block title %}{{ parent() }} - {{ 'user.register'|trans }}{% endblock %}
 
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        <div class="bg-red text-black" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">Inscription</h1>
+    <h1 class="text-shadow-lg shadow-red font-sans text-4xl text-center font-bold uppercase">
+        {{ 'user.register'|trans }}
+    </h1>
     <section class="flex justify-center items-center h-full">
         <div class="block p-6 rounded-lg shadow-lg bg-red max-w-xl">
             {{ form_start(registrationForm) }}
@@ -15,7 +17,7 @@
             {{ form_row(registrationForm.lastname) }}
             {{ form_row(registrationForm.email) }}
             {{ form_row(registrationForm.plainPassword, {
-                label: 'Mot de passe',
+                label: 'password'|trans,
                 label_attr: {'class': 'text-white md:text-2xl font-serif font-bold'},
                 attr: {'class': 'text-black md:text-xl w-full'}
             }) }}
@@ -24,7 +26,7 @@
             <button type="submit" class="btn btn text-center inline-block px-6 py-2.5 bg-white text-black font-medium
         text-md leading-tight uppercase rounded hover:opacity-50 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg
         focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
-                Créer un compte
+                {{ 'account.create'|trans }}
             </button>
             {{ form_end(registrationForm) }}
         </div>

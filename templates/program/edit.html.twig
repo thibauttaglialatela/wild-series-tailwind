@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ parent() }} - édition d'une série{% endblock %}
+{% block title %}{{ parent() }} - {{ 'program.edition'|trans }}{% endblock %}
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">Editer une série</h1>
+    <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">
+        {{ 'program.edit'|trans }}
+    </h1>
 <section class="flex flex-col justify-center items-center">
     <div class="flex flex-col items-center p-6 my-5 rounded-lg shadow-lg bg-red max-w-xl">
-        {{ include('program/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        {{ include('program/_form.html.twig', {'button_label': 'program.update'|trans}) }}
         <div class="mt-5">
             {{ component('_button', {
                 buttonUrl: path('program_show', {'slug': program.slug}),
-                buttonText: 'Retour',
+                buttonText: 'program.back'|trans,
             }) }}
         </div>
     </div>

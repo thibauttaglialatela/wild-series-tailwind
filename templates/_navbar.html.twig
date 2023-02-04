@@ -39,14 +39,14 @@ navbar navbar-expand-md navbar-red
                 <li class="nav-item px-2 my-5">
                     {{ component('_button', {
                         buttonUrl: path("actor_index"),
-                        buttonText: 'acteurs'
+                        buttonText: 'actor.index'|trans
                     }) }}
                 </li>
 
                     <li class="nav-item px-2 my-5">
                         {{ component('_button', {
                             buttonUrl: path('program_index'),
-                            buttonText: 'séries'
+                            buttonText: 'program.index'|trans
                         }) }}
                     </li>
 
@@ -84,7 +84,7 @@ navbar navbar-expand-md navbar-red
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                 >
-                                    catégories
+                                    {{ 'categories'|trans }}
                                     <svg
                                             aria-hidden="true"
                                             focusable="false"
@@ -108,7 +108,7 @@ navbar navbar-expand-md navbar-red
                 </li>
                 {% if is_granted('ROLE_CONTRIBUTOR') %}
                     <li class="nav-item pr-2">
-                        <a class="nav-link text-black hover:text-white focus:text-white p-0" href="#">mes favoris</a>
+                        <a class="nav-link text-black hover:text-white focus:text-white p-0" href="#">{{ 'user.favorites'|trans }}</a>
                     </li>
                 {% endif %}
 
@@ -118,19 +118,134 @@ navbar navbar-expand-md navbar-red
                     </li>
                     <li class="nav-item pr-2">
                         <a class="nav-link text-black hover:text-white focus:text-white p-0"
-                           href="{{ path('my_profile') }}">Mon profil</a>
+                           href="{{ path('my_profile') }}">{{ 'user.profile'|trans }}</a>
                     </li>
                     <li class="nav-item pr-2">
                         <a class="nav-link text-black hover:text-white focus:text-white p-0"
-                           href="{{ path('app_logout') }}">Se déconnecter</a>
+                           href="{{ path('app_logout') }}">{{ 'account.logout'|trans }}</a>
                     </li>
                 {% else %}
                     <li class="nav-item pr-2">
                         <a class="nav-link text-black hover:text-white focus:text-white p-0"
-                           href="{{ path('app_login') }}">Se connecter</a>
+                           href="{{ path('app_login') }}">{{ 'account.login'|trans }}</a>
                     </li>
                 {% endif %}
-
+                <div class="flex justify-center">
+                    <div>
+                        <div class="dropdown relative">
+                            <a
+                                    class="
+          dropdown-toggle
+          px-6
+          py-2.5
+          bg-white
+          text-black
+          font-medium
+          text-md
+          leading-tight
+          uppercase
+          rounded
+          shadow-md
+          hover:bg-blue-700 hover:shadow-lg
+          focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+          active:bg-blue-800 active:shadow-lg active:text-white
+          transition
+          duration-150
+          ease-in-out
+          flex
+          items-center
+          whitespace-nowrap
+        "
+                                    href="#"
+                                    type="button"
+                                    id="dropdownMenuButton2"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                            >
+                                {{ 'languages'|trans }}
+                                <svg
+                                        aria-hidden="true"
+                                        focusable="false"
+                                        data-prefix="fas"
+                                        data-icon="caret-down"
+                                        class="w-2 ml-2"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 320 512"
+                                >
+                                    <path
+                                            fill="currentColor"
+                                            d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                                    ></path>
+                                </svg>
+                            </a>
+                            <ul
+                                    class="
+          dropdown-menu
+          min-w-full
+          absolute
+          hidden
+          bg-red
+          text-base
+          z-50
+          float-left
+          py-2
+          list-none
+          text-left
+          rounded-lg
+          shadow-lg
+          mt-1
+          hidden
+          m-0
+          bg-clip-padding
+          border-none
+        "
+                                    aria-labelledby="dropdownMenuButton2"
+                            >
+                                <li>
+                                    <a
+                                            class="
+              dropdown-item
+              text-xl
+              py-2
+              px-4
+              font-normal
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100
+              text-center
+            "
+                                            href="/en/"
+                                    >🇬🇧 {{ 'english'|trans }}</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                            class="
+              dropdown-item
+              text-xl
+              py-2
+              px-4
+              font-normal
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100
+              text-center
+            "
+                                            href="/fr/"
+                                    >🇫🇷 {{ 'french'|trans }}</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </ul>
             <!-- Left links -->
         </div>

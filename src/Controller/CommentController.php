@@ -51,7 +51,7 @@ class CommentController extends AbstractController
             'episode' => $episode,
         ]);
     }
-//    #[IsGranted('ROLE_ADMIN', message: 'opération interdite',statusCode: Response::HTTP_FORBIDDEN)]
+
     #[Route('/{id}/program/{program_slug}/season/{season_id}/episode/{episode_slug}/delete', name: 'delete', methods: ['POST'])]
     #[ParamConverter('program', class: 'App\Entity\Program', options: ['mapping' => ['program_slug' => 'slug']])]
     #[ParamConverter('season', class: 'App\Entity\Season', options: ['mapping' => ['season_id' => 'id']])]

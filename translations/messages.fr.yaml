@@ -9,4 +9,141 @@ actors: 'Les actrices et les acteurs'
 edit: éditer
 actor.programs: 'Ses séries'
 'This actor is any program for now': "Cette acteur n' est dans aucune série pour le moment"
-actor.birthday: Né le %birthday%
+actor.birthday: 'Né le %birthday%'
+'A program was added.': 'Une série a été ajouté'
+'The program was edited.': 'La série a été édité.'
+'Be careful, a program has been deleted!': 'Attention, une série a été effacée !'
+'This program does not exist!': 'Cette série n'' existe pas !'
+'An actor has been add': 'Un acteur a été ajouté'
+"Only an administrator can delete an actor's file.": "Seul un administrateur peut supprimer la fiche d'un acteur."
+'An actor has been deleted!': 'Un acteur a été supprimé !'
+'An episode has been add': 'Un épisode a été ajouté'
+'The episode has been edited': 'L'' épisode a été édité'
+'Be careful, an episode was deleted!': 'Attention, un épisode a été effacé !'
+category.edit: Editer une catégorie
+update: Mettre à jour
+category.add: Ajouter une catégorie
+'Are you sure you want to delete this category?': 'Etes vous sure de vouloir supprimer cette catégorie ?'
+category.delete: Supprimer une catégorie
+actor.index: Acteurs
+category: Catégorie
+user.favorites: Mes favoris
+user.profile: Mon profil
+account.logout: Se déconnecter
+account.login: Se connecter
+comment.edition: Edition d'' un commentaire
+comment.update: Mettre à jour un commentaire
+comment.add: Ajouter un commentaire
+user.comment: Commentaire d'un utilisateur
+close: Fermer
+comment.save: Enregistrer le commentaire
+'Are you sure you want to delete this comment?': 'Etes vous sur de vouloir supprimer ce commentaire ?'
+comment.delete: Supprimer un commentaire
+password.reset.request: Demande de réinitialisation de mot de passe
+reset.password.email.verification: Email de vérification de réinitialisation de mot de passe
+reset.password.email.send: Envoyer l'' émail de réinitialisation de mot de passe
+password.reset: Réinitialisation de mot de passe
+program.edition: Edition d'' une série
+program.edit: Editer une série
+program.update: Mise à jour d'' une série
+program.back: Retour à la série
+Search: Rechercher
+program.list: Liste des séries
+program.add: Ajouter une série
+title: Titre
+country: Pays
+year: Année
+actions: Actions
+program.show: Montrer la série
+program.creation: Création d''une série
+program.index.back: Retour à la liste des séries
+season_number.program: 'Saison %season_number% de %program%'
+season.description: Résumé de la saison
+episode.list: Liste des épisodes
+'No episode registered': 'Aucun épisode enregistré'
+episode_number.episode_title: 'Episode %episode_number% :: %episode_title%'
+season.show: Montrer la saison
+season.edit: Editer la saison
+episode.add: Ajouter un épisode
+'Are you sure you want to delete this program?': 'Etes vous sûre de vouloir supprimer cette série ?'
+program.delete: Supprimer une série
+user_email.profile: Profile de l''utilisateur
+user.welcome: Bienvenu %user_firstname% %user_lastname%
+episode.edition: Edition d'' un épisode
+episode.edit: Editer un épisode
+episode.update: Mettre à jour un épisode
+program.episode.show.back: Retour à l''épisode
+episode.new: Nouvel épisode
+episode.create: Créer un épisode
+program.season.show.back: Retour à la saison
+episode.save: Enregistrer un épisode
+episode.delete: Supprimer un épisode
+user.register: S' enregistrer
+password: Mot de passe
+account.create: Créer un compte
+login.form: Formulaire de connection
+user.email: email de l'' utilisateur
+'Enter your email': 'Entrer votre email'
+'remember me': 'Se souvenir de moi'
+'password forgotten': 'Mot de passe oublié'
+'Not a member?': 'Pas encore membre ?'
+account.register: Créer un compte
+'Our last programs': 'Nos derniéres séries'
+categories: Catégories
+'Learn more': 'En savoir plus'
+season.add: Ajouter une saison
+episode_number.season_number.program_title: Episode %episode_number% de la saison %season_number% de %program_title%
+episode.summary: Résumé de l' épisode
+episode_duration: 'Durée : %episode_duration% minutes'
+'average rating:': 'Moyenne des notes :'
+'No rate': 'Aucune note'
+comment.list: Liste des commentaires
+episode.no_comment: __episode.no_comment
+comment.note: Note
+comment.author: auteur du commentaire
+comment.edit: Editer un commentaire
+season.show.back: Retour à la saison
+program.index: Liste des séries
+'Category: category_name': 'Catégorie : %category_name%'
+'No season for this program': 'Aucune saison pour cette série'
+'Total viewing time: program_duration': 'Durée totale de visionnage : %program_duration%'
+'Summary:': 'Résumé :'
+Seasons: Saisons
+'Season - season_number': 'Saison - %season_number%'
+'Actors:': 'Acteurs :'
+'No actor for this program.': 'Aucun acteur pour cette série.'
+'My favorite programs': 'Mes séries favorites'
+languages: Choix de la langue
+English: Anglais
+French: Français
+firstname: Prénom
+Lastname: Nom de famille
+birthday: Date de naissance
+'His picture': 'Sa photo'
+'The programs in which she or he plays': 'La série dans laquelle il ou elle joue'
+english: anglais
+french: français
+Comment: Commentaire
+'rate of the episode': 'note de l''épisode'
+'Season number': 'Saison numéro'
+Year: Année
+'Summary of the season': 'Résumé de la série'
+'Please enter a valid password': 'Veuillez entrer un mot de passe valide'
+Submit: Soumettre
+Firstname: Prénom
+'Please accept the terms of use': 'Veuillez accepter les conditions d''utilisation'
+'Please create a password': 'Veuillez créer un mot de passe'
+'Title of the episose': 'Titre de l''épisode'
+Number: Numéro
+Summary: Résumé
+'Duration of the episode, in minutes': 'Durée de l''épisode, en minutes'
+'The name of the category': 'Le nom de la catégorie'
+'Create a category': 'Créer une catégorie'
+'The title of the program': 'Le titre de la série'
+'Summary of the program': 'Résumé de la série'
+'delete the file': 'Supprimer le fichier'
+'Picture of the program': 'Image de la série'
+Country: Pays
+'Creation year': 'Année de création'
+Category: Catégorie
+'The actors': 'Les acteurs'

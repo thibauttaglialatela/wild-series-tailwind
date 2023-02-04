@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Edition d'un épisode{% endblock %}
+{% block title %}{{ parent() }} - {{ 'episode.edition'|trans }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">Editer un épisode</h1>
+    <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">
+        {{ 'episode.edit'|trans }}
+    </h1>
 <section class="flex flex-col justify-center items-center">
     <div class="flex flex-col items-center p-6 my-5 rounded-lg shadow-lg bg-red max-w-xl">
-        {{ include('episode/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        {{ include('episode/_form.html.twig', {'button_label': 'episode.update'|trans}) }}
         <div class="mt-5">
             {{ component('_button', {
                 buttonUrl: path('program_episode_show', {'slug': program.slug, "seasonId": season.id, 'episode_slug': episode.slug}),
-                buttonText: 'Retour',
+                buttonText: 'program.episode.show.back'|trans,
             }) }}
         </div>
     </div>

@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -28,7 +29,7 @@ class ChangePasswordFormType extends AbstractType
                 'first_options' => [
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Veuillez entrer un mot de passe',
+                            'message' => new TranslatableMessage('Please enter a valid password'),
                         ]),
                         new Length([
                             // max length allowed by Symfony for security reasons
@@ -53,7 +54,7 @@ class ChangePasswordFormType extends AbstractType
                 'mapped' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Soumettre',
+                'label' => new TranslatableMessage('Submit'),
                 'attr' => ['class' => 'btn text-center inline-block px-6 py-2.5 bg-white text-black font-medium text-md leading-tight uppercase rounded hover:opacity-50 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'],
             ]);
         ;

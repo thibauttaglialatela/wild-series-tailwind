@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ parent() }} - Edition d'une catégorie{% endblock %}
+{% block title %}{{ parent() }} - {{ 'category.edit'|trans }}{% endblock %}
 {% block body %}
-    <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">Editer une catégorie</h1>
+    <h1 class="text-shadow-lg shadow-red text-center uppercase font-extrabold font-serif text-4xl md:text-5xl xl:text-6xl my-4 md:my-8">
+        {{ 'category.edit'|trans }}
+    </h1>
     <section class="flex justify-center items-center flex-col">
         <div class="block p-6 my-5 rounded-lg shadow-lg bg-red max-w-xl">
-            {{ include('category/_form.html.twig', {'button_label': 'mettre à jour'}) }}
+            {{ include('category/_form.html.twig', {'button_label': 'update'|trans}) }}
         </div>
 
         <div class="mt-5">
             {{ component('_button', {
                 buttonUrl: path('category_show', {'categoryName': category.name}),
-                buttonText: 'Retour',
+                buttonText: 'Back'|trans,
             }) }}
         </div>
     </section>

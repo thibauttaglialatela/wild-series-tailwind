@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class SearchProgramType extends AbstractType
 {
@@ -13,7 +14,9 @@ class SearchProgramType extends AbstractType
     {
         $builder
             ->add('search', SearchType::class, [
-                'attr' => ['class' => 'text-black md:text-xl w-full']
+                'attr' => ['class' => 'text-black md:text-xl w-full'],
+                'label' => new TranslatableMessage('Search'),
+                'label_attr' => ['class' => 'text-black md:text-2xl font-serif font-bold'],
             ]);
     }
 

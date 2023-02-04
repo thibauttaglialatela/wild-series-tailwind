@@ -14,7 +14,7 @@
         <div class="flex flex-col justify-center items-center">
 
             <h4 class="font-medium leading-tight text-lg lg:text-3xl mt-5 mb-2 text-white text-center">
-                {% trans with {'%birthday%' : actor.birthDate|format_datetime('full', 'none', locale='fr') } %}
+                {% trans with {'%birthday%' : actor.birthDate|format_datetime('full', 'none', locale=current_locale) } %}
                 actor.birthday
                 {% endtrans %}
             </h4>
@@ -45,7 +45,7 @@
         {% if is_granted('ROLE_CONTRIBUTOR') %}
             {{ component('_button', {
                 buttonUrl: path('actor_edit', {slug:actor.slug}),
-                buttonText: 'éditer',
+                buttonText: 'edit'|trans,
             }) }}
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
@@ -53,7 +53,7 @@
         {% endif %}
         {{ component('_button', {
             buttonUrl: path('actor_index'),
-            buttonText: 'Retour',
+            buttonText: 'Back'|trans,
         }) }}
     </div>
 {% endblock %}

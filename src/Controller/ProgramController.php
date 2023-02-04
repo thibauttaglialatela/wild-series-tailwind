@@ -27,6 +27,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -51,7 +52,12 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(MailerInterface $mailer, Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
+    public function new(TranslatorInterface $translator,
+                        MailerInterface     $mailer,
+                        Request             $request,
+                        ProgramRepository   $programRepository,
+                        SluggerInterface    $slugger
+    ): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -62,7 +68,7 @@ class ProgramController extends AbstractController
             $program->setSlug($slug);
             $program->setOwner($this->getUser());
             $programRepository->save($program, true);
-            $this->addFlash('green', 'Une série a bien été ajoutée.');
+            $this->addFlash('green', $translator->trans('A program was added.'));
             $email = (new Email())
                 ->to('user@hotmail.fr')
                 ->subject('new program added')
@@ -147,7 +153,12 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: "edit")]
-    public function edit(Request $request, Program $program, ProgramRepository $programRepository, SluggerInterface $slugger): Response
+    public function edit(Request             $request,
+                         Program             $program,
+                         ProgramRepository   $programRepository,
+                         SluggerInterface    $slugger,
+                         TranslatorInterface $translator
+    ): Response
     {
 
         $form = $this->createForm(ProgramType::class, $program);
@@ -157,7 +168,7 @@ class ProgramController extends AbstractController
             $slug = $slugger->slug($program->getTitle());
             $program->setSlug($slug);
             $programRepository->save($program, true);
-            $this->addFlash('green', 'La série a bien été éditée.');
+            $this->addFlash('green', $translator->trans('The program was edited.'));
 
             return $this->redirectToRoute('program_show', ['slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
         }
@@ -169,7 +180,11 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST', 'DELETE'])]
-    public function delete(Program $program, ProgramRepository $programRepository, Request $request): Response
+    public function delete(Program             $program,
+                           ProgramRepository   $programRepository,
+                           Request             $request,
+                           TranslatorInterface $translator
+    ): Response
     {
         $token = $request->get('_token');
         if (!is_string($token)) {
@@ -177,17 +192,17 @@ class ProgramController extends AbstractController
         }
         if ($this->isCsrfTokenValid('delete' . $program->getId(), $token)) {
             $programRepository->remove($program, true);
-            $this->addFlash('red', 'La série a été supprimé !');
+            $this->addFlash('red', $translator->trans('Be careful, a program has been deleted!'));
         }
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/watchlist', name: 'watchlist', methods: ['GET', 'POST'])]
-    public function addToWatchlist(Program $program, UserRepository $userRepository): JsonResponse
+    public function addToWatchlist(Program $program, UserRepository $userRepository, TranslatorInterface $translator): JsonResponse
     {
         if (!$program) {
             throw $this->createNotFoundException(
-                'Cette série n\'existe pas'
+                $translator->trans('This program does not exist!')
             );
         }
         /** @var \App\Entity\User */
