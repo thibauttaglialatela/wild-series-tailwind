@@ -1,6 +1,6 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
-    prefix: /{_locale}
+    prefix: /{_locale}/
     requirements:
         _locale: fr|en
