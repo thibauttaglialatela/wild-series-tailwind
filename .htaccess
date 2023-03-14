@@ -19,4 +19,8 @@
   # redirect all requests to app's public directory
   RewriteCond %{REQUEST_URI} !public/
   RewriteRule (.*) /public/$1 [L]
+
+  # add locale [fr] if not in URL
+  RewriteCond %{REQUEST_URI} !^/[a-z]{2}/
+  RewriteRule ^(.*) /fr/$1 [R=301,L]
 </IfModule>
