@@ -98,7 +98,7 @@ episode_duration: 'Durée : %episode_duration% minutes'
 'average rating:': 'Moyenne des notes :'
 'No rate': 'Aucune note'
 comment.list: Liste des commentaires
-episode.no_comment: __episode.no_comment
+episode.no_comment: Aucun commentaire pour cet épisode
 comment.note: Note
 comment.author: auteur du commentaire
 comment.edit: Editer un commentaire
@@ -133,7 +133,7 @@ Submit: Soumettre
 Firstname: Prénom
 'Please accept the terms of use': 'Veuillez accepter les conditions d''utilisation'
 'Please create a password': 'Veuillez créer un mot de passe'
-'Title of the episose': 'Titre de l''épisode'
+'Title of the episode': 'Titre de l''épisode'
 Number: Numéro
 Summary: Résumé
 'Duration of the episode, in minutes': 'Durée de l''épisode, en minutes'
